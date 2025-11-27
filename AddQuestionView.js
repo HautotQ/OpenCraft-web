@@ -18,6 +18,8 @@ class AddQuestionView {
         q.className = "edit-textarea";
         q.autocorrect = "off";
         q.autocomplete = "off";
+        q.spellcheck = false;
+        q.setAttribute("autocapitalize", "off");
         q.style.fontSize = "30px";
         q.placeholder = "Question";
         q.style.display = "block";
@@ -26,8 +28,10 @@ class AddQuestionView {
         
         const a = document.createElement("input");
         a.className = "edit-textarea";
-        a.autocorrect = "off";
-        a.autocomplete = "off";
+        a.autocorrect = "off";        // iOS
+        a.autocomplete = "off";       // navigateur
+        a.spellcheck = false;         // vérification orthographique
+        a.setAttribute("autocapitalize", "off"); // désactive la majuscule automatique au début
         a.style.fontSize = "30px";
         a.placeholder = "Réponse";
         a.style.display = "block";
