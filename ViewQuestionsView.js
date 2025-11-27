@@ -95,47 +95,47 @@ class ViewQuestionsView {
     }
     
     exportFile() {
-        const questions = this.store.questions;
-        
-        if (questions.length === 0) {
-            alert("Aucune question à exporter.");
-            return;
-        }
-        
-        // Récupérer le nom saisi par l'utilisateur
-        let filename = (this.filenameInput.value || "questions").trim();
-        
-        if (filename.length === 0) {
-            filename = "questions";
-            return;
-        }
-        
-        // Ajouter l'extension automatiquement
-//        if (!filename.endsWith(".clist")) {
-//            filename += ".clist";
-//        }
-        
-        // Construire le contenu
-        let content = "";
-        
-        for (let i = 0; i < questions.length; i++) {
-            const q = questions[i];
-            content += q.query + "\n";
-            content += q.answer + "\n\n";
-        }
-        
-        // Envoyer le texte + le nom du fichier à Swift
-        const payload = {
-            filename: filename,
-            content: content
-        };
-        
-        if (window.webkit?.messageHandlers?.exportFile) {
-            window.webkit.messageHandlers.exportFile.postMessage(payload);
-        } else {
-            alert("exportFile() non connecté côté Swift");
-        }
+    const questions = this.store.questions;
+
+    if (questions.length === 0) {
+        alert("Aucune question à exporter.");
+        return;
     }
+
+    // Récupérer le nom saisi par l'utilisateur
+    let filename = (this.filenameInput.value || "questions").trim();
+
+    if (filename.length === 0) {
+        filename = "questions";
+    }
+
+    // Ajouter l'extension automatiquement
+    if (!filename.endsWith(".clist")) {
+        filename += ".clist";
+    }
+
+    // Construire le contenu
+    let content = "";
+
+    for (let i = 0; i < questions.length; i++) {
+        const q = questions[i];
+        content += q.query + "\n";
+        content += q.answer + "\n\n";
+    }
+
+    // 🔽 Nouvelle partie : téléchargement dans le navigateur
+    const blob = new Blob([content], { type: "text/plain" });
+    const url = URL.createObjectURL(blob);
+
+    const a = document.createElement("a");
+    a.href = url;
+    a.download = filename;
+    document.body.appendChild(a);
+    a.click();
+    document.body.removeChild(a);
+
+    URL.revokeObjectURL(url); 
+}
     
     renderList() {
         const el = this.listContainer.getElement();
