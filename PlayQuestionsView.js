@@ -81,6 +81,10 @@ class PlayQuestionsView {
         
         this.answerField = document.createElement("input");
         this.answerField.className = "edit-textarea";
+        this.answerField.setAttribute("autocorrect", "off");
+        this.answerField.setAttribute("autocomplete", "off");
+        this.answerField.setAttribute("autocapitalize", "off");
+        this.answerField.setAttribute("spellcheck", "false");
         this.answerField.style.fontSize = "30px";
         this.answerField.type = "text";
         this.answerField.placeholder = "Réponse";
