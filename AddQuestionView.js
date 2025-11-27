@@ -15,23 +15,25 @@ class AddQuestionView {
         div.appendChild(title);
         
         const q = document.createElement("input");
+        q.type = "text";
         q.className = "edit-textarea";
-        q.autocorrect = "off";
-        q.autocomplete = "off";
-        q.spellcheck = false;
+        q.setAttribute("autocorrect", "off");
+        q.setAttribute("autocomplete", "off");
         q.setAttribute("autocapitalize", "off");
+        q.setAttribute("spellcheck", "false");
         q.style.fontSize = "30px";
         q.placeholder = "Question";
         q.style.display = "block";
         q.style.marginBottom = "10px";
         div.appendChild(q);
-        
+
         const a = document.createElement("input");
+        a.type = "text";
         a.className = "edit-textarea";
-        a.autocorrect = "off";        // iOS
-        a.autocomplete = "off";       // navigateur
-        a.spellcheck = false;         // vérification orthographique
-        a.setAttribute("autocapitalize", "off"); // désactive la majuscule automatique au début
+        a.setAttribute("autocorrect", "off");
+        a.setAttribute("autocomplete", "off");
+        a.setAttribute("autocapitalize", "off");
+        a.setAttribute("spellcheck", "false");
         a.style.fontSize = "30px";
         a.placeholder = "Réponse";
         a.style.display = "block";
