@@ -21,7 +21,7 @@ window.addEventListener("load", () => {
         document.getElementById("loader").style.display = "none";
         document.getElementById("root").style.display = "block";
         
-        const content = new ContentView();
-        content.show();
+        const root = document.getElementById("root");
+        new Main(root);
     }, DELAI);
 });
