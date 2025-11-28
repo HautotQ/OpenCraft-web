@@ -2,26 +2,30 @@
 
 class Main {
     constructor(root) {
-        this.root = root; // le conteneur principal
+        this.root = root;
         this.show();
     }
     
     show() {
-        new ContentView().show();
+        // Affiche ta vue principale dans le bon conteneur
+        new ContentView().show(this.root);
     }
 }
 
 // Lance Main
-
 window.addEventListener("load", () => {
-    // temps d'attente avant affichage (en millisecondes)
-    const DELAI = 3000;
-    
+    const DELAI = 3000; // délai avant d'afficher l'app
+
     setTimeout(() => {
+        // retire le loader
         document.getElementById("loader").style.display = "none";
-        document.getElementById("root").style.display = "block";
-        
+
+        // montre la zone racine
         const root = document.getElementById("root");
+        root.style.display = "block";
+
+        // démarre l'application
         new Main(root);
+
     }, DELAI);
 });
