@@ -9,18 +9,16 @@
 </head>
 
 <body>
-    <!-- Loader visible immédiatement -->
     <div id="loader">
         <l-ring size="40" stroke="5"></l-ring>
     </div>
 
-    <!-- Application masquée -->
     <div id="root" style="display:none;"></div>
 
-    <!-- Charge LDRS (une seule fois) -->
-    <script type="module">
-        import { ring } from "https://cdn.jsdelivr.net/npm/ldrs/dist/ldrs.min.js"
-        ring.register()
+    <!-- Version compatible iOS web-app -->
+    <script src="https://cdn.jsdelivr.net/npm/ldrs/dist/umd.min.js"></script>
+    <script>
+        ldrs.ring.register();
     </script>
 
     <!-- Tes scripts -->
