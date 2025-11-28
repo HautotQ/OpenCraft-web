@@ -46,7 +46,6 @@ class AddQuestionView {
                 this.store.addQuestion({ query: q.value, answer: a.value });
                 q.value = "";
                 a.value = "";
-                alert("Ajouté !");
             }
         };
         div.appendChild(add);
