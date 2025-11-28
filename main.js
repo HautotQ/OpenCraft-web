@@ -14,13 +14,14 @@ class Main {
 // Lance Main
 
 window.addEventListener("load", () => {
-    // cacher le loader
-    document.getElementById("loader").style.display = "none";
+    // temps d'attente avant affichage (en millisecondes)
+    const DELAI = 3000;
     
-    // afficher le contenu principal
-    document.getElementById("root").style.display = "block";
-    
-    // démarrer ton app
-    const root = document.getElementById("root");
-    new Main(root);
+    setTimeout(() => {
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("root").style.display = "block";
+        
+        const content = new ContentView();
+        content.show();
+    }, DELAI);
 });
