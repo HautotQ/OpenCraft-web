@@ -124,7 +124,7 @@ class ViewQuestionsView {
     }
 
     // 🔽 Nouvelle partie : téléchargement dans le navigateur
-    const blob = new Blob([content], { type: "text/plain" });
+    const blob = new Blob([content], { type: "application/clist" });
     const url = URL.createObjectURL(blob);
 
     const a = document.createElement("a");
