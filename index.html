@@ -6,32 +6,34 @@
     <title>OpenCraft</title>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <script type="module">
-        import { ring } from "https://cdn.jsdelivr.net/npm/ldrs/dist/ldrs.min.js"
-        ring.register()
-    </script>
 </head>
+
 <body>
+    <!-- Loader visible immédiatement -->
     <div id="loader">
         <l-ring size="40" stroke="5"></l-ring>
     </div>
 
+    <!-- Application masquée -->
     <div id="root" style="display:none;"></div>
 
+    <!-- Charge LDRS (une seule fois) -->
     <script type="module">
-        import 'ldrs/ring'
+        import { ring } from "https://cdn.jsdelivr.net/npm/ldrs/dist/ldrs.min.js"
+        ring.register()
     </script>
-    
+
+    <!-- Tes scripts -->
     <script src="Utils.js"></script>
     <script src="QuestionStore.js"></script>
     <script src="Alert.js"></script>
-    
+
     <script src="ViewQuestionsView.js"></script>
     <script src="EndView.js"></script>
     <script src="PlayQuestionsView.js"></script>
     <script src="AddQuestionView.js"></script>
     <script src="EditQuestionView.js"></script>
-    
+
     <script src="ContentView.js"></script>
     <script src="main.js"></script>
 </body>
