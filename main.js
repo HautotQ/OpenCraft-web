@@ -11,8 +11,16 @@ class Main {
     }
 }
 
-// Lance Main après chargement
-window.addEventListener("DOMContentLoaded", () => {
+// Lance Main
+
+window.addEventListener("load", () => {
+    // cacher le loader
+    document.getElementById("loader").style.display = "none";
+    
+    // afficher le contenu principal
+    document.getElementById("root").style.display = "block";
+    
+    // démarrer ton app
     const root = document.getElementById("root");
     new Main(root);
 });
