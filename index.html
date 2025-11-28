@@ -4,6 +4,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OpenCraft</title>
+    <script type="module">
+        import { ring } from "https://unpkg.com/ldrs/dist/ldrs.min.js"
+        ring.register()
+    </script>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
@@ -11,15 +15,10 @@
 <body>
     <div id="loader">
         <l-ring size="40" stroke="5"></l-ring>
+        <noscript>Chargement…</noscript>
     </div>
 
     <div id="root" style="display:none;"></div>
-
-    <!-- Version compatible iOS web-app -->
-    <script src="https://cdn.jsdelivr.net/npm/ldrs/dist/umd.min.js"></script>
-    <script>
-        ldrs.ring.register();
-    </script>
 
     <!-- Tes scripts -->
     <script src="Utils.js"></script>
