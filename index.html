@@ -5,12 +5,19 @@
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OpenCraft</title>
     <link rel="stylesheet" href="style.css">
+    <script type="module">
+        import { ring } from "https://cdn.jsdelivr.net/npm/ldrs/dist/ldrs.min.js"
+        ring.register()
+    </script>
 </head>
 <body>
     <div id="loader">
-        <div class="container">
-            <div class="cube"></div>
-        </div>
+        <l-ring
+            size="60"
+            stroke="5"
+            speed="2"
+            color="#00ff00">
+        </l-ring>
     </div>
 
     <div id="root" style="display:none;"></div>
