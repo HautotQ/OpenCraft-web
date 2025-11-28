@@ -14,13 +14,14 @@ class Main {
 
 // Lance Main
 document.addEventListener("DOMContentLoaded", () => {
-    const DELAI = 1500; // 1.5 sec, plus rapide
+    const DELAI = 1500; // 1,5s minimum
 
     setTimeout(() => {
         document.getElementById("loader").style.display = "none";
-        document.getElementById("root").style.display = "block";
 
         const root = document.getElementById("root");
+        root.style.opacity = 1;
+
         new Main(root);
     }, DELAI);
 });
