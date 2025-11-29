@@ -1,19 +1,18 @@
 // main.js
 
-class Main {
+export class Main {
     constructor(root) {
         this.root = root;
         this.show();
     }
-    
+
     show() {
-        // Affiche ta vue principale dans le bon conteneur
         new ContentView().show(this.root);
     }
 }
 
-// Lance Main
-document.addEventListener("DOMContentLoaded", () => {
+// Auto-lancement si script principal
+window.addEventListener("DOMContentLoaded", () => {
     const loader = document.querySelector(".loader");
     const root = document.getElementById("root");
 
@@ -29,6 +28,6 @@ document.addEventListener("DOMContentLoaded", () => {
             root.style.opacity = 1;
 
             new Main(root);
-        }, 500); // correspond à la transition
-    }, 1500); // délai minimum pour montrer le loader
+        }, 500);
+    }, 1500);
 });
