@@ -1,6 +1,6 @@
 // ContentView.js
 
-class ContentView {
+export class ContentView {
     
     show() {
         document.body.innerHTML = "";
