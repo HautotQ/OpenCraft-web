@@ -30,7 +30,7 @@ class ContentView {
         const content = document.createElement("div");
         content.id = "content";
         content.style.flex = "1";
-        content.style.padding = "20px";
+        content.style.padding = "10px";
         app.appendChild(content);
         
         // Boutons
