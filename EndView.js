@@ -1,6 +1,6 @@
 // EndView.js
 
-class EndView {
+export class EndView {
     
     show(root) {
         root.innerHTML = "";
