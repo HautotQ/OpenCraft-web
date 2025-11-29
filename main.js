@@ -1,6 +1,6 @@
 // main.js
 
-export class Main {
+class Main {
     constructor(root) {
         this.root = root;
         this.show();
