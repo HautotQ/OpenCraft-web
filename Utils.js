@@ -1,11 +1,11 @@
-function navigationButton(root, label, ViewClass, ...args) {
+export function navigationButton(root, label, ViewClass, ...args) {
     const btn = document.createElement("button");
     btn.innerText = label;
     btn.onclick = () => new ViewClass(...args).show(root);
     return btn;
 }
 
-class HStack {
+export class HStack {
     constructor(options = {}) {
         // Crée le conteneur
         this.container = document.createElement("div");
@@ -31,7 +31,7 @@ class HStack {
     }
 }
 
-class ScrollView {
+export class ScrollView {
     constructor({ width = "100%", height = "300px", padding = "5px", gap = "5px" } = {}) {
         this.container = document.createElement("div");
         this.container.style.width = width;
