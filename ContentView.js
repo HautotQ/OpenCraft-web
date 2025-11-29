@@ -19,6 +19,8 @@ class ContentView {
         menuBar.style.padding = "10px";
         menuBar.style.display = "flex";
         menuBar.style.gap = "10px";
+        menuBar.style.overflowX = "auto";
+        menuBar.style.whiteSpace = "nowrap";
         app.appendChild(menuBar);
         
         // CONTENU DES VUES
