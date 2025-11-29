@@ -1,5 +1,5 @@
 // PlayQuestionsView.js
-class PlayQuestionsView {
+export class PlayQuestionsView {
     constructor(questionStore, onEndView) {
         this.isActive = false;
         this.questionStore = questionStore;
