@@ -1,44 +1,30 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
-    <title>OpenCraft</title>
+    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>Mon JS</title>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
-
 <body>
-    <!-- Loader LDRS -->
-    <div class="loader">
-        <l-treadmill
-          size="70"
-          speed="1.25" 
-          color="black">
-        </l-treadmill>
+    <div id="loader" class="container">
+        <div class="cube"></div>
     </div>
-
-    <!-- Contenu principal -->
+    
     <div id="root" style="display:none;"></div>
-
-    <!-- Import auto-defining loader -->
-    <script type="module">
-        // Import du loader auto-defining
-        import "https://cdn.jsdelivr.net/npm/ldrs@1.1.7/dist/auto/treadmill.js";
-
-        // Import de tes scripts comme modules
-        import './Utils.js';
-        import './QuestionStore.js';
-        import './Alert.js';
-        import './ViewQuestionsView.js';
-        import './EndView.js';
-        import './PlayQuestionsView.js';
-        import './AddQuestionView.js';
-        import './EditQuestionView.js';
-        import './ContentView.js';
-        import './main.js';
-    </script>
+    
+    <script src="Utils.js"></script>
+    <script src="QuestionStore.js"></script>
+    <script src="Alert.js"></script>
+    
+    <script src="ViewQuestionsView.js"></script>
+    <script src="EndView.js"></script>
+    <script src="PlayQuestionsView.js"></script>
+    <script src="AddQuestionView.js"></script>
+    <script src="EditQuestionView.js"></script>
+    
+    <script src="ContentView.js"></script>
+    <script src="main.js"></script>
 </body>
 </html>
