@@ -12,22 +12,15 @@ class Main {
 }
 
 // Auto-lancement si script principal
-window.addEventListener("DOMContentLoaded", () => {
-    const loader = document.querySelector(".loader");
-    const root = document.getElementById("root");
-
+window.addEventListener("load", () => {
+    // temps d'attente avant affichage (en millisecondes)
+    const DELAI = 3000;
+    
     setTimeout(() => {
-        loader.style.transition = "opacity 0.5s";
-        loader.style.opacity = 0;
-
-        setTimeout(() => {
-            loader.style.display = "none";
-            root.style.display = "block";
-            root.style.opacity = 0;
-            root.style.transition = "opacity 0.5s";
-            root.style.opacity = 1;
-
-            new Main(root);
-        }, 500);
-    }, 1500);
+        document.getElementById("loader").style.display = "none";
+        document.getElementById("root").style.display = "block";
+        
+        const root = document.getElementById("root");
+        new Main(root);
+    }, DELAI);
 });
