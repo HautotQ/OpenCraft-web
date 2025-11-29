@@ -6,13 +6,13 @@
     <title>OpenCraft</title>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
-    <script type="module">
-        import { treadmill } from 'https://raw.githubusercontent.com/GriffinJohnston/ldrs/refs/heads/main/src/elements/treadmill.ts';
-        treadmill.register();
-    </script>
 </head>
 
 <body>
+    <script type="module">
+        import { treadmill } from 'ldrs';
+        treadmill.register();
+    </script>
     <div class="loader">
         <!--<div class="cube"></div>-->
         <l-treadmill
