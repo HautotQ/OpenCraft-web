@@ -6,11 +6,20 @@
     <title>OpenCraft</title>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <script type="module">
+        import { treadmill } from 'https://raw.githubusercontent.com/GriffinJohnston/ldrs/refs/heads/main/src/elements/treadmill.ts';
+        treadmill.register();
+    </script>
 </head>
 
 <body>
     <div class="loader">
-        <div class="cube"></div>
+        <!--<div class="cube"></div>-->
+        <l-treadmill
+          size="70"
+          speed="1.25" 
+          color="black" 
+        ></l-treadmill>
     </div>
 
     <div id="root" style="display:none;"></div>
