@@ -1,6 +1,6 @@
 // Alert.js
 
-class Alert {
+export class Alert {
     constructor(title, message) {
         this.show(title, message);
     }
