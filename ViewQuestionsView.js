@@ -8,6 +8,8 @@ class ViewQuestionsView {
     show(target) {
         this.target = target;
         target.innerHTML = "";
+
+        target.style.marginTop = "50px";
         
         const div = document.createElement("div");
         
