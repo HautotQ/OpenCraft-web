@@ -4,22 +4,13 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
     <title>OpenCraft</title>
-    <script type="module">
-        import { treadmill } from 'ldrs'
-        treadmill.register()
-    </script>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 
 <body>
-    <div id="loader">
-        <l-treadmill
-          size="70"
-          speed="1.25" 
-          color="black" 
-        ></l-treadmill>
-        <noscript>Chargement…</noscript>
+    <div class="loader">
+        <div class="cube"></div>
     </div>
 
     <div id="root" style="display:none;"></div>
