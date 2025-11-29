@@ -1,5 +1,5 @@
 // EditQuestionView.js
-export class EditQuestionView {
+class EditQuestionView {
     constructor(query, answer, onSave) {
         this.query = query;
         this.answer = answer;
