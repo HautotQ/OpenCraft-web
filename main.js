@@ -12,15 +12,7 @@ class Main {
 }
 
 // Auto-lancement si script principal
-window.addEventListener("load", () => {
-    // temps d'attente avant affichage (en millisecondes)
-    const DELAI = 3000;
-    
-    setTimeout(() => {
-        document.getElementById("loader").style.display = "none";
-        document.getElementById("root").style.display = "block";
-        
-        const root = document.getElementById("root");
-        new Main(root);
-    }, DELAI);
+window.addEventListener("DOMContentLoaded", () => {
+    const root = document.getElementById("root");
+    new Main(root);
 });
