@@ -25,25 +25,20 @@
 
     <!-- Import auto-defining loader -->
     <script type="module">
+        // Import du loader auto-defining
         import "https://cdn.jsdelivr.net/npm/ldrs@1.1.7/dist/auto/treadmill.js";
 
-        // Masquer le loader et afficher le contenu après chargement
-        window.addEventListener('load', () => {
-            document.querySelector('.loader').style.display = 'none';
-            document.getElementById('root').style.display = 'block';
-        });
+        // Import de tes scripts comme modules
+        import './Utils.js';
+        import './QuestionStore.js';
+        import './Alert.js';
+        import './ViewQuestionsView.js';
+        import './EndView.js';
+        import './PlayQuestionsView.js';
+        import './AddQuestionView.js';
+        import './EditQuestionView.js';
+        import './ContentView.js';
+        import './main.js';
     </script>
-
-    <!-- Tes scripts -->
-    <script src="Utils.js"></script>
-    <script src="QuestionStore.js"></script>
-    <script src="Alert.js"></script>
-    <script src="ViewQuestionsView.js"></script>
-    <script src="EndView.js"></script>
-    <script src="PlayQuestionsView.js"></script>
-    <script src="AddQuestionView.js"></script>
-    <script src="EditQuestionView.js"></script>
-    <script src="ContentView.js"></script>
-    <script src="main.js"></script>
 </body>
 </html>
