@@ -1,5 +1,5 @@
 // QuestionStore.js
-class QuestionStore {
+export class QuestionStore {
     constructor() {
         this.STORAGE_KEY = "opencraft-questions";
         
