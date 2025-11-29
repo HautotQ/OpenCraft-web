@@ -4,9 +4,6 @@ class ContentView {
     
     show() {
         document.body.innerHTML = "";
-
-        
-        document.body.style.marginTop = "30px";
         
         const app = document.createElement("div");
         app.id = "app-container";
