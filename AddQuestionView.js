@@ -7,6 +7,8 @@ class AddQuestionView {
     
     show(target) {
         target.innerHTML = ""; // on vide seulement le contenu, pas le menu
+
+        target.style.marginTop = "50px";
         
         const div = document.createElement("div");
         
