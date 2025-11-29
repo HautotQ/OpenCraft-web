@@ -9,7 +9,7 @@ class ViewQuestionsView {
         this.target = target;
         target.innerHTML = "";
 
-        this.target.style.paddingTop = "15px";
+        target.style.paddingTop = "15px";
         
         const div = document.createElement("div");
         
