@@ -9,7 +9,7 @@ class ViewQuestionsView {
         this.target = target;
         target.innerHTML = "";
 
-        target.style.marginTop = "50px";
+        target.style.marginTop = "30px";
         
         const div = document.createElement("div");
         
