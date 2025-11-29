@@ -14,14 +14,21 @@ class Main {
 
 // Lance Main
 document.addEventListener("DOMContentLoaded", () => {
-    const DELAI = 1500; // 1,5s minimum
+    const loader = document.querySelector(".loader");
+    const root = document.getElementById("root");
 
     setTimeout(() => {
-        document.getElementById("loader").style.display = "none";
+        loader.style.transition = "opacity 0.5s";
+        loader.style.opacity = 0;
 
-        const root = document.getElementById("root");
-        root.style.opacity = 1;
+        setTimeout(() => {
+            loader.style.display = "none";
+            root.style.display = "block";
+            root.style.opacity = 0;
+            root.style.transition = "opacity 0.5s";
+            root.style.opacity = 1;
 
-        new Main(root);
-    }, DELAI);
+            new Main(root);
+        }, 500); // correspond à la transition
+    }, 1500); // délai minimum pour montrer le loader
 });
