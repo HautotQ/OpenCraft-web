@@ -1,6 +1,6 @@
 // ViewQuestionsView.js
 
-export class ViewQuestionsView {
+class ViewQuestionsView {
     constructor(questionStore) {
         this.store = questionStore;
     }
