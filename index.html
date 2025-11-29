@@ -1,19 +1,17 @@
 <!DOCTYPE html>
-<html>
+<html lang="fr">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <meta name="apple-mobile-web-app-capable" content="yes">
+    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>OpenCraft</title>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
 </head>
 
 <body>
-    <!-- Import du loader treadmill auto-defining -->
-    <script type="module">
-        import "https://cdn.jsdelivr.net/npm/ldrs@1.1.7/dist/auto/treadmill.js";
-    </script>
-
+    <!-- Loader LDRS -->
     <div class="loader">
         <l-treadmill
           size="70"
@@ -22,7 +20,19 @@
         </l-treadmill>
     </div>
 
+    <!-- Contenu principal -->
     <div id="root" style="display:none;"></div>
+
+    <!-- Import auto-defining loader -->
+    <script type="module">
+        import "https://cdn.jsdelivr.net/npm/ldrs@1.1.7/dist/auto/treadmill.js";
+
+        // Masquer le loader et afficher le contenu après chargement
+        window.addEventListener('load', () => {
+            document.querySelector('.loader').style.display = 'none';
+            document.getElementById('root').style.display = 'block';
+        });
+    </script>
 
     <!-- Tes scripts -->
     <script src="Utils.js"></script>
