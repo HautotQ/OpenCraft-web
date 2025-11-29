@@ -4,6 +4,8 @@ class EndView {
     
     show(root) {
         root.innerHTML = "";
+
+        root.style.marginTop = "60px";
         
         const container = document.createElement("div");
         
