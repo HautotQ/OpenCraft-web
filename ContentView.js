@@ -4,6 +4,9 @@ class ContentView {
     
     show() {
         document.body.innerHTML = "";
+
+        
+        document.body.style.marginTop = "30px";
         
         const app = document.createElement("div");
         app.id = "app-container";
@@ -44,6 +47,5 @@ class ContentView {
         
         // Contenu par défaut
         content.innerHTML = "<h2>Bienvenue dans OpenCraft ✨</h2>";
-        content.style.marginTop = "30px";
     }
 }
