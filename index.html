@@ -9,17 +9,17 @@
 </head>
 
 <body>
+    <!-- Import du loader treadmill auto-defining -->
     <script type="module">
-        import { treadmill } from "https://cdn.jsdelivr.net/npm/ldrs@1.1.7/dist/index.js";
-        treadmill.register();
+        import "https://cdn.jsdelivr.net/npm/ldrs@1.1.7/dist/auto/treadmill.js";
     </script>
+
     <div class="loader">
-        <!--<div class="cube"></div>-->
         <l-treadmill
           size="70"
           speed="1.25" 
-          color="black" 
-        ></l-treadmill>
+          color="black">
+        </l-treadmill>
     </div>
 
     <div id="root" style="display:none;"></div>
@@ -28,13 +28,11 @@
     <script src="Utils.js"></script>
     <script src="QuestionStore.js"></script>
     <script src="Alert.js"></script>
-
     <script src="ViewQuestionsView.js"></script>
     <script src="EndView.js"></script>
     <script src="PlayQuestionsView.js"></script>
     <script src="AddQuestionView.js"></script>
     <script src="EditQuestionView.js"></script>
-
     <script src="ContentView.js"></script>
     <script src="main.js"></script>
 </body>
