@@ -13,8 +13,9 @@ class ViewQuestionsView {
         
         const div = document.createElement("div");
         
-        const hstack = new HStack({ spacing: 10, justifyContent: "center" });
-        hstack.style.overflowX = "auto";
+        const hstack = new HStack({ spacing: 10, justifyContent: "center", overflowX: "auto" });
+        hstack.style.whiteSpace = "nowrap";            // empêche les boutons de passer à la ligne
+        hstack.style.webkitOverflowScrolling = "touch"; // scroll fluide sur iPhone/iPad
         
         const title = document.createElement("h2");
         title.innerText = "Gestion des Questions";
@@ -40,6 +41,10 @@ class ViewQuestionsView {
             this.store.clear();
             this.renderList();
         };
+        [importButton, exportButton, clearBtn].forEach(btn => {
+            btn.style.display = "inline-block";
+            btn.style.flexShrink = "0"; // empêche le bouton de rétrécir
+        });
         hstack.add(clearBtn);
         
         const filename = document.createElement("input");
