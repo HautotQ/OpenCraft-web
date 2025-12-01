@@ -1,16 +1,20 @@
 // ContentView.js
 
 class ContentView {
+    
     show() {
         document.body.innerHTML = "";
-
+        
+        //target.style.marginTop = "50px";
+        
         const app = document.createElement("div");
         app.id = "app-container";
-        app.style.position = "relative";
-        //app.style.height = `${window.innerHeight}px`;
+        app.style.display = "flex";
+        app.style.flexDirection = "column";
+        app.style.height = "100vh";
         document.body.appendChild(app);
-
-        // MENU flottant
+        
+        // MENU
         const menuBar = document.createElement("div");
         menuBar.classList.add("menu-bar");
         menuBar.style.background = "#ddd";
@@ -27,19 +31,14 @@ class ContentView {
         menuBar.style.zIndex = "100";
         
         app.appendChild(menuBar);
-
+        
         // CONTENU DES VUES
         const content = document.createElement("div");
         content.id = "content";
-        content.style.position = "absolute";
-        content.style.top = "0";
-        content.style.left = "0";
-        content.style.right = "0";
-        content.style.bottom = "0";
-        content.style.paddingTop = "50px"; // correspond à la hauteur de menuBar
-        content.style.overflowY = "auto";
+        content.style.flex = "1";
+        content.style.padding = "20px";
         app.appendChild(content);
-
+        
         // Boutons
         const questionStore = new QuestionStore();
         menuBar.appendChild(
@@ -51,8 +50,9 @@ class ContentView {
         menuBar.appendChild(
             navigationButton(content, "Jouer les Questions", PlayQuestionsView, questionStore)
         );
-
+        
         // Contenu par défaut
         content.innerHTML = "<h2>Bienvenue dans OpenCraft ✨</h2>";
+        content.style.marginTop = "60px";
     }
 }
