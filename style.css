@@ -29,15 +29,16 @@ body {
     -webkit-user-select: none;
     user-select: none;
 }
-
+/*
 .menu-bar {
-    z-index: 1000; /* toujours au-dessus */
+    z-index: 1000;
 }
 
 #content {
-    padding-top: 50px; /* correspond à la hauteur de menuBar */
+    padding-top: 50px;
     box-sizing: border-box;
 }
+*/
 
 /*body * {*/
 /*    pointer-events: none;*/
