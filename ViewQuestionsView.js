@@ -14,6 +14,7 @@ class ViewQuestionsView {
         const div = document.createElement("div");
         
         const hstack = new HStack({ spacing: 10, justifyContent: "center" });
+        hstack.style.overflowX = "auto";
         
         const title = document.createElement("h2");
         title.innerText = "Gestion des Questions";
