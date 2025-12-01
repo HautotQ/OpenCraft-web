@@ -19,8 +19,16 @@ class PlayQuestionsView {
         this.initUI();
         this.shuffleQuestions();
         this.loadQuestions();
-        
-        this.questionStore.subscribe((updated) => this.onStoreUpdated(updated));
+
+        this.unsubscribe = this.questionStore.subscribe((u) => this.onStoreUpdated(u));
+    }
+
+    hide() {
+        this.isActive = false;
+        if (this.unsubscribe) {
+            this.unsubscribe(); // suppression du listener
+            this.unsubscribe = null;
+        }
     }
     
     onStoreUpdated(updatedQuestions) {
@@ -196,6 +204,7 @@ class PlayQuestionsView {
         this.isActive = false;
         this.root.innerHTML = "";          // 💥 vider l'écran
         new EndView().show(this.root);     // 💥 passer le root !
+        this.hide();
     }
     
     isApproximatelyEqual(a, b) {
