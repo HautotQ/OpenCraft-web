@@ -37,7 +37,7 @@ class ViewQuestionsView {
         clearBtn.innerText = "Tout supprimer";
         clearBtn.onclick = () => { 
             this.store.clear();
-//            this.renderList();
+            this.renderList();
         };
         hstack.add(clearBtn);
         
