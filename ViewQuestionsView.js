@@ -52,8 +52,11 @@ class ViewQuestionsView {
         div.appendChild(this.listContainer.getElement());
         
         this.store.subscribe(() => this.renderList());
-                
-        target.appendChild(hstack.getElement());
+        
+        const h = hstack.getElement();
+        h.style.overflowX = "hidden";            // bloque TOUT scroll horizontal
+        h.style.whiteSpace = "nowrap";           // empêche un retour à la ligne
+        target.appendChild(h);
         target.appendChild(div);
         this.renderList();
     }
