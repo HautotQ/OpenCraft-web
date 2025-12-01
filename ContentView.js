@@ -43,13 +43,13 @@ class ContentView {
         // Boutons
         const questionStore = new QuestionStore();
         menuBar.appendChild(
-            navigationButton(content, "Ajouter une question", AddQuestionView, questionStore)
+            navigationButton(content, "Ajouter une question", () => showView(AddQuestionView))
         );
         menuBar.appendChild(
-            navigationButton(content, "Voir les questions", ViewQuestionsView, questionStore)
+            navigationButton(content, "Voir les questions", () => showView(ViewQuestionsView))
         );
         menuBar.appendChild(
-            navigationButton(content, "Jouer les Questions", PlayQuestionsView, questionStore)
+            navigationButton(content, "Jouer les Questions", () => showView(PlayQuestionsView))
         );
         
         // Contenu par défaut
