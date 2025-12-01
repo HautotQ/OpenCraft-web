@@ -5,6 +5,12 @@ function navigationButton(root, label, ViewClass, ...args) {
     return btn;
 }
 
+function showView(viewClass) {
+    content.innerHTML = ""; // juste supprimer l’ancien contenu
+    const view = new viewClass(questionStore);
+    view.show(content); // chaque vue s’ajoute proprement
+}
+
 class HStack {
     constructor(options = {}) {
         // Crée le conteneur
