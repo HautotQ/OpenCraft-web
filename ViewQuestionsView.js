@@ -6,60 +6,57 @@ class ViewQuestionsView {
     }
     
     show(target) {
-    this.target = target;
-    target.innerHTML = "";
+        this.target = target;
+        target.innerHTML = "";
 
-    // Titre général
-    const title = document.createElement("h2");
-    title.innerText = "Gestion des Questions";
-    target.appendChild(title);
-
-    // HStack des boutons
-    const hstack = document.createElement("div"); // on peut éviter HStack custom pour plus de stabilité
-    hstack.style.display = "flex";
-    hstack.style.gap = "10px";
-    hstack.style.overflowX = "auto";
-    hstack.style.whiteSpace = "nowrap";
-    hstack.style.webkitOverflowScrolling = "touch";
-    hstack.style.marginBottom = "15px";
-
-    const importButton = document.createElement("button");
-    importButton.innerText = "Importer";
-    importButton.onclick = () => this.importFile();
-
-    const exportButton = document.createElement("button");
-    exportButton.innerText = "Exporter";
-    exportButton.onclick = () => this.exportFile();
-
-    const clearBtn = document.createElement("button");
-    clearBtn.innerText = "Tout supprimer";
-    clearBtn.onclick = () => { 
-        this.store.clear();
+        target.style.paddingTop = "15px";
+        
+        const div = document.createElement("div");
+        
+        const hstack = new HStack({ spacing: 10, justifyContent: "center" });
+        
+        const title = document.createElement("h2");
+        title.innerText = "Gestion des Questions";
+        div.appendChild(title);
+        
+        const importButton = document.createElement("button");
+        importButton.innerText = "Importer";
+        importButton.onclick = () => {
+            this.importFile();
+        };
+        hstack.add(importButton);
+        
+        const exportButton = document.createElement("button");
+        exportButton.innerText = "Exporter";
+        exportButton.onclick = () => {
+            this.exportFile();
+        };
+        hstack.add(exportButton);
+        
+        const clearBtn = document.createElement("button");
+        clearBtn.innerText = "Tout supprimer";
+        clearBtn.onclick = () => { 
+            this.store.clear();
+            this.renderList();
+        };
+        hstack.add(clearBtn);
+        
+        const filename = document.createElement("input");
+        filename.className = "edit-textarea";
+        filename.style.height = "30px";
+        this.filenameInput = filename;
+        
+        
+        this.listContainer = new ScrollView({ height: "300px" });
+        div.appendChild(filename);
+        div.appendChild(this.listContainer.getElement());
+        
+        this.store.subscribe(() => this.renderList());
+                
+        target.appendChild(hstack.getElement());
+        target.appendChild(div);
         this.renderList();
-    };
-
-    [importButton, exportButton, clearBtn].forEach(btn => {
-        btn.style.display = "inline-block";
-        btn.style.flexShrink = "0";
-        hstack.appendChild(btn);
-    });
-
-    target.appendChild(hstack);
-
-    // Input filename
-    const filename = document.createElement("input");
-    filename.className = "edit-textarea";
-    filename.style.height = "30px";
-    this.filenameInput = filename;
-    target.appendChild(filename);
-
-    // Liste des questions
-    this.listContainer = new ScrollView({ height: "350px" });
-    target.appendChild(this.listContainer.getElement());
-
-    this.store.subscribe(() => this.renderList());
-    this.renderList();
-}
+    }
     
     importFile() {
         const input = document.createElement("input");
