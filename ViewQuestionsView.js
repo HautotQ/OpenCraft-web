@@ -15,8 +15,9 @@ class ViewQuestionsView {
         div.style.overflowX = "hidden"; // bloque scroll horizontal sur le parent
         
         const hstack = new HStack({ spacing: 10, justifyContent: "center", overflowX: "auto" });
-        hstack.style.whiteSpace = "nowrap";            // empêche les boutons de passer à la ligne
+        hstack.style.whiteSpace = "nowrap";             // empêche les boutons de passer à la ligne
         hstack.style.webkitOverflowScrolling = "touch"; // scroll fluide sur iPhone/iPad
+        hstack.style.marginBottom = "15px";            // espace entre la HStack et le reste
         
         const title = document.createElement("h2");
         title.innerText = "Gestion des Questions";
