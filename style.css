@@ -30,6 +30,15 @@ body {
     user-select: none;
 }
 
+.menu-bar {
+    z-index: 1000; /* toujours au-dessus */
+}
+
+#content {
+    padding-top: 50px; /* correspond à la hauteur de menuBar */
+    box-sizing: border-box;
+}
+
 /*body * {*/
 /*    pointer-events: none;*/
 /*}*/
