@@ -25,7 +25,7 @@ class ContentView {
         menuBar.style.overflowX = "auto";
         menuBar.style.whiteSpace = "nowrap";
         menuBar.style.zIndex = "1000"; // toujours au-dessus
-        menuBar.style.webkitOverflowScrolling = "touch";
+        //menuBar.style.webkitOverflowScrolling = "touch";
         app.appendChild(menuBar);
 
         // CONTENU DES VUES
