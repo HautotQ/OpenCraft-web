@@ -8,12 +8,12 @@ class ViewQuestionsView {
     show(target) {
         this.target = target;
         target.innerHTML = "";
-
-        target.style.paddingTop = "15px";
+        
+        target.style.marginTop = "50px";
         
         const div = document.createElement("div");
         
-        const hstack = new HStack({ spacing: 5, justifyContent: "center" });
+        const hstack = new HStack({ spacing: 10, justifyContent: "center" });
         
         const title = document.createElement("h2");
         title.innerText = "Gestion des Questions";
@@ -37,7 +37,7 @@ class ViewQuestionsView {
         clearBtn.innerText = "Tout supprimer";
         clearBtn.onclick = () => { 
             this.store.clear();
-            this.renderList();
+//            this.renderList();
         };
         hstack.add(clearBtn);
         
@@ -47,16 +47,13 @@ class ViewQuestionsView {
         this.filenameInput = filename;
         
         
-        this.listContainer = new ScrollView({ height: "300px" });
+        this.listContainer = new ScrollView({ height: "375px" });
         div.appendChild(filename);
         div.appendChild(this.listContainer.getElement());
         
         this.store.subscribe(() => this.renderList());
-        
-        const h = hstack.getElement();
-        h.style.overflowX = "hidden";            // bloque TOUT scroll horizontal
-        h.style.whiteSpace = "nowrap";           // empêche un retour à la ligne
-        target.appendChild(h);
+                
+        target.appendChild(hstack.getElement());
         target.appendChild(div);
         this.renderList();
     }
