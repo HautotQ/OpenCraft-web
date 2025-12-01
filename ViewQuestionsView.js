@@ -12,6 +12,7 @@ class ViewQuestionsView {
         target.style.paddingTop = "15px";
         
         const div = document.createElement("div");
+        div.style.overflowX = "hidden"; // bloque scroll horizontal sur le parent
         
         const hstack = new HStack({ spacing: 10, justifyContent: "center", overflowX: "auto" });
         hstack.style.whiteSpace = "nowrap";            // empêche les boutons de passer à la ligne
