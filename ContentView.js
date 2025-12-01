@@ -13,19 +13,19 @@ class ContentView {
         // MENU flottant
         const menuBar = document.createElement("div");
         menuBar.classList.add("menu-bar");
-        menuBar.style.position = "absolute";
-        menuBar.style.top = "0";
-        menuBar.style.left = "0";
-        menuBar.style.right = "0";
-        menuBar.style.height = "50px";
         menuBar.style.background = "#ddd";
         menuBar.style.padding = "10px";
         menuBar.style.display = "flex";
         menuBar.style.gap = "10px";
         menuBar.style.overflowX = "auto";
         menuBar.style.whiteSpace = "nowrap";
-        menuBar.style.zIndex = "1000"; // toujours au-dessus
-        //menuBar.style.webkitOverflowScrolling = "touch";
+        
+        menuBar.style.position = "fixed";
+        menuBar.style.top = "0";
+        menuBar.style.left = "0";
+        menuBar.style.width = "100%";
+        menuBar.style.zIndex = "100";
+        
         app.appendChild(menuBar);
 
         // CONTENU DES VUES
