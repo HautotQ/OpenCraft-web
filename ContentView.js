@@ -7,7 +7,7 @@ class ContentView {
         const app = document.createElement("div");
         app.id = "app-container";
         app.style.position = "relative";
-        app.style.height = `${window.innerHeight}px`;
+        //app.style.height = `${window.innerHeight}px`;
         document.body.appendChild(app);
 
         // MENU flottant
