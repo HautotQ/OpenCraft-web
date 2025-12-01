@@ -1,7 +1,14 @@
 /* style.css : style informatique / terminal */
+@font-face {
+    font-family: "JetBrains";
+    src: url("JetBrainsMono-ExtraBold.ttf") format("truetype");
+    font-weight: normal;
+    font-style: normal;
+}
+
 body {
     margin: 0;
-    font-family: "Courier New", Courier, monospace;
+    font-family: "JetBrains", monospace;
     background-color: #121212; /* fond sombre style terminal */
     color: #00ff00; /* texte vert fluo */
     overflow: hidden;
@@ -48,7 +55,7 @@ button {
     color: #00ff00;
     border: 1px solid #00ff00;
     padding: 10px 20px;
-    font-family: monospace;
+    font-family: "JetBrains", monospace;
     font-size: 18px;
     cursor: pointer;
     margin-top: 15px;
@@ -59,7 +66,7 @@ button:hover {
 }
 
 p, span {
-    font-family: monospace;
+    font-family: "JetBrains", monospace;
     font-size: 20px;
     line-height: 1.5;
 }
@@ -100,7 +107,7 @@ p, span {
     min-width: 320px;
     max-width: 90vw;
     box-shadow: 0 0 20px #00ff0077;
-    font-family: monospace;
+    font-family: "JetBrains", monospace;
     color: #00ff00;
 }
 
@@ -133,7 +140,7 @@ p, span {
 .edit-modal-buttons button {
     padding: 8px 14px;
     border: 1px solid #00ff00;
-    font-family: monospace;
+    font-family: "JetBrains", monospace;
     background-color: #111;
     color: #00ff00;
     cursor: pointer;
@@ -150,7 +157,7 @@ p, span {
     color: #00ff00;
     border: 1px solid #00ff00;
     padding: 8px;
-    font-family: monospace;
+    font-family: "JetBrains", monospace;
     box-sizing: border-box;
     margin-bottom: 12px;
     resize: none;
