@@ -9,12 +9,13 @@ class ContentView {
         app.id = "app-container";
         app.style.display = "flex";
         app.style.flexDirection = "column";
-        app.style.height = "100vh";
+        app.style.height = `${window.innerHeight}px`;
         document.body.appendChild(app);
         
         // MENU
         const menuBar = document.createElement("div");
         menuBar.classList.add("menu-bar");
+        menuBar.style.webkitOverflowScrolling = "touch";
         menuBar.style.background = "#ddd";
         menuBar.style.padding = "10px";
         menuBar.style.display = "flex";
@@ -26,7 +27,9 @@ class ContentView {
         // CONTENU DES VUES
         const content = document.createElement("div");
         content.id = "content";
-        content.style.flex = "1";
+        content.style.flexGrow = "1";
+        content.style.flexShrink = "1";
+        content.style.flexBasis = "0";
         content.style.padding = "10px";
         app.appendChild(content);
         
