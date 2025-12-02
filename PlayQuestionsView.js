@@ -68,7 +68,7 @@ class PlayQuestionsView {
     initUI() {
         this.root.innerHTML = "";
 
-        this.root.style.marginTop = "45px";
+        this.root.style.marginTop = "120px";
         
         if (this.questionStore.getObservableQuestions().length === 0) {
             const container = document.createElement("div");
