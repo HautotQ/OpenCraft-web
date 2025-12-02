@@ -71,10 +71,16 @@ class PlayQuestionsView {
         this.root.style.marginTop = "45px";
         
         if (this.questionStore.getObservableQuestions().length === 0) {
+            const container = document.createElement("div");
+            container.style.marginTop = "120px";  // 👍 descendu correctement
+            container.style.textAlign = "center";
+            container.style.fontSize = "18px";
+
             const label = document.createElement("div");
             label.innerText = "Pas de questions enregistrées...";
-            label.style.marginTop = "45px";
-            this.root.appendChild(label);
+
+            container.appendChild(label);
+            this.root.appendChild(container);
             return;
         }
         
