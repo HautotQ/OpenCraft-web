@@ -73,6 +73,7 @@ class PlayQuestionsView {
         if (this.questionStore.getObservableQuestions().length === 0) {
             const label = document.createElement("div");
             label.innerText = "Pas de questions enregistrées...";
+            label.style.marginTop = "45px";
             this.root.appendChild(label);
             return;
         }
