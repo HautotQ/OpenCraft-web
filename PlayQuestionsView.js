@@ -171,6 +171,7 @@ class PlayQuestionsView {
             if (this.incorrectQuestions.length > 0) {
                 this.remainingQuestions.push(...this.incorrectQuestions);
                 this.incorrectQuestions = [];
+                this.shuffleQuestions();
             }
         }
         
