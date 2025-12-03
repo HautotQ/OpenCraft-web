@@ -1,0 +1,20 @@
+{
+  "name": "OpenCraft: study. smarter",
+  "short_name": "OpenCraft",
+  "description": "OpenCraft est l'app web dont vous avez besoin pour étudier.",
+  "start_url": "/index.html",
+  "scope": "/",
+  "display": "standalone",
+  "icons": [
+    {
+      "src": "/favicon.png",
+      "sizes": "64x64",
+      "type": "image/png"
+    },
+    {
+      "src": "/apple-touch-icon.png",
+      "sizes": "217x215",
+      "type": "image/png"
+    }
+  ]
+}
