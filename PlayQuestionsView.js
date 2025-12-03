@@ -150,7 +150,6 @@ class PlayQuestionsView {
         
         // CAS NORMAL : une question à afficher
         if (this.currentQuestion) {
-            this.shuffleQuestions();
             this.questionLabel.innerText = this.currentQuestion.query;
             this.remainingLabel.innerText =
             "Questions restantes : " + this.remainingQuestions.length;
