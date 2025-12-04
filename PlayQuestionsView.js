@@ -32,21 +32,33 @@ class PlayQuestionsView {
     
     onStoreUpdated(updatedQuestions) {
         if (!this.isActive) return;
-        // Synchroniser les questions
+
         const currentQuery = this.currentQuestion?.query;
-        
-        this.remainingQuestions = updatedQuestions.filter(q => q.query !== currentQuery);
-        
-        // Si la question courante a été supprimée, prendre la première restante
+
+        // 1. Garder uniquement les questions qui existent encore dans le store
+        this.remainingQuestions = this.remainingQuestions.filter(
+            q => updatedQuestions.includes(q) && q.query !== currentQuery
+        );
+
+        // 2. Ajouter les nouvelles questions du store (sans casser l'ordre)
+        updatedQuestions.forEach(q => {
+            const existsInRemaining = this.remainingQuestions.includes(q);
+            const isCurrent = currentQuery && q.query === currentQuery;
+            if (!existsInRemaining && !isCurrent) {
+                this.remainingQuestions.push(q); // ← préserve ordre aléatoire
+            }
+        });
+
+        // 3. Si la question courante a été supprimée : prendre la prochaine de remainingQuestions
         if (!this.currentQuestion || !updatedQuestions.includes(this.currentQuestion)) {
             this.currentQuestion = this.remainingQuestions.shift() || null;
         }
-        
-        // Réinitialiser l'UI si plus de questions
+
+        // 4. Si plus de questions
         if (!this.currentQuestion) {
             this.allQuestionsAnsweredOnce = true;
         }
-        
+
         this.updateUI();
     }
     
