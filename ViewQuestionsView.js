@@ -47,7 +47,7 @@ class ViewQuestionsView {
         this.filenameInput = filename;
         
         
-        this.listContainer = new ScrollView({ height: "375px" });
+        this.listContainer = new ScrollView({ height: "350px" });
         div.appendChild(filename);
         div.appendChild(this.listContainer.getElement());
         
