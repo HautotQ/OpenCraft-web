@@ -1,22 +1,29 @@
 <!DOCTYPE html>
-<html lang="fr">
+<html>
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
-    <meta name="apple-mobile-web-app-capable" content="yes">
-    <meta name="apple-mobile-web-app-status-bar-style" content="black-translucent">
     <title>OpenCraft</title>
     <link rel="stylesheet" href="style.css">
     <link rel="apple-touch-icon" href="apple-touch-icon.png">
+    <style id="custom-css"></style>
 </head>
 <body>
+    <div id="loader" class="container">
+        <div class="cube"></div>
+    </div>
     
-    <div id="root">test</div>
+    <div id="root" style="display:none;"></div>
     
     <script src="Utils.js"></script>
+    <script>
+        loadCustomCSS();
+    </script>
     <script src="QuestionStore.js"></script>
     <script src="Alert.js"></script>
     
+    <script src="SettingsView.js"></script>
+    <script src="CSSImporterView.js"></script>
     <script src="ViewQuestionsView.js"></script>
     <script src="EndView.js"></script>
     <script src="PlayQuestionsView.js"></script>
