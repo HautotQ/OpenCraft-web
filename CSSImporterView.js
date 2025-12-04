@@ -17,7 +17,7 @@ class CssImporterView {
         this.target.appendChild(title);
         
         const inputFile = document.createElement("input");
-        inputFile.className = "edit-modal";
+        inputFile.className = "container";
         inputFile.type = "file";
         inputFile.accept = ".css";
         this.target.appendChild(inputFile);
