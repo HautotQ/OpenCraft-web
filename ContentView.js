@@ -1,5 +1,7 @@
 // ContentView.js
 
+// ContentView.js
+
 class ContentView {
     
     show() {
@@ -49,6 +51,9 @@ class ContentView {
         );
         menuBar.appendChild(
             navigationButton(content, "Jouer les Questions", PlayQuestionsView, questionStore)
+        );
+        menuBar.appendChild(
+            navigationButton(content, "Paramètres", SettingsView, content)
         );
         
         // Contenu par défaut
