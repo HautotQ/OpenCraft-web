@@ -59,9 +59,15 @@ class PlayQuestionsView {
     }
     
     shuffleQuestions() {
-        for (let i = this.remainingQuestions.length - 1; i > 0; i--) {
-            const j = Math.floor(Math.random() * (i + 1));
-            [this.remainingQuestions[i], this.remainingQuestions[j]] = [this.remainingQuestions[j], this.remainingQuestions[i]];
+        const arr = this.remainingQuestions;
+
+        for (let i = arr.length - 1; i > 0; i--) {
+            // Nombre aléatoire vraiment uniforme et plus imprévisible
+            const randomValues = new Uint32Array(1);
+            crypto.getRandomValues(randomValues);
+            const j = randomValues[0] % (i + 1);
+
+            [arr[i], arr[j]] = [arr[j], arr[i]];
         }
     }
     
@@ -157,6 +163,7 @@ class PlayQuestionsView {
             if (this.incorrectQuestions.length > 0) {
                 this.remainingQuestions.push(...this.incorrectQuestions);
                 this.incorrectQuestions = [];
+                this.shuffleQuestions();
             }
         }
         
