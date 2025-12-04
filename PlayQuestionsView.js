@@ -53,9 +53,9 @@ class PlayQuestionsView {
     
     loadQuestions() {
         this.remainingQuestions = [...this.questionStore.getObservableQuestions()];
-        this.shuffleQuestions();
-        this.currentQuestion = this.remainingQuestions[0] || null;
-        this.askNextQuestion(); // va mettre à jour labels et progress
+        this.shuffleQuestions();       // shuffle une fois
+        this.currentQuestion = null;   // pas besoin de prendre le 0
+        this.askNextQuestion();        // prendra la première question du tableau shuffle
     }
     
     shuffleQuestions() {
