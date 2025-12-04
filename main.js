@@ -2,17 +2,21 @@
 
 class Main {
     constructor(root) {
-        this.root = root;
+        this.root = root; // le conteneur principal
+        loadCustomCSS();
         this.show();
     }
-
+    
     show() {
-        new ContentView().show(this.root);
+        loadCustomCSS();
+        new ContentView().show();
     }
 }
 
-// Auto-lancement si script principal
+// Lance Main
+
 window.addEventListener("DOMContentLoaded", () => {
+    loadCustomCSS();
     const root = document.getElementById("root");
     new Main(root);
 });
