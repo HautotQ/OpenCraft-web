@@ -17,7 +17,7 @@ class CssImporterView {
         this.target.appendChild(title);
         
         const inputFile = document.createElement("input");
-        inputFile.className = "container";
+        inputFile.className = "edit-textarea";
         inputFile.type = "file";
         inputFile.accept = ".css";
         this.target.appendChild(inputFile);
