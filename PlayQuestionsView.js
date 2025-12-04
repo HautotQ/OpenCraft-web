@@ -53,40 +53,27 @@ class PlayQuestionsView {
     
     loadQuestions() {
         this.remainingQuestions = [...this.questionStore.getObservableQuestions()];
-        this.shuffleQuestions();       // shuffle une fois
-        this.currentQuestion = null;   // pas besoin de prendre le 0
-        this.askNextQuestion();        // prendra la première question du tableau shuffle
+        this.shuffleQuestions();
+        this.currentQuestion = this.remainingQuestions[0] || null;
+        this.askNextQuestion(); // va mettre à jour labels et progress
     }
     
     shuffleQuestions() {
-        const arr = this.remainingQuestions;
-
-        for (let i = arr.length - 1; i > 0; i--) {
-            // Nombre aléatoire vraiment uniforme et plus imprévisible
-            const randomValues = new Uint32Array(1);
-            crypto.getRandomValues(randomValues);
-            const j = randomValues[0] % (i + 1);
-
-            [arr[i], arr[j]] = [arr[j], arr[i]];
+        for (let i = this.remainingQuestions.length - 1; i > 0; i--) {
+            const j = Math.floor(Math.random() * (i + 1));
+            [this.remainingQuestions[i], this.remainingQuestions[j]] = [this.remainingQuestions[j], this.remainingQuestions[i]];
         }
     }
     
     initUI() {
         this.root.innerHTML = "";
 
-        this.root.style.marginTop = "120px";
+        this.root.style.marginTop = "45px";
         
         if (this.questionStore.getObservableQuestions().length === 0) {
-            const container = document.createElement("div");
-            container.style.marginTop = "120px";  // 👍 descendu correctement
-            container.style.textAlign = "center";
-            container.style.fontSize = "18px";
-
             const label = document.createElement("div");
             label.innerText = "Pas de questions enregistrées...";
-
-            container.appendChild(label);
-            this.root.appendChild(container);
+            this.root.appendChild(label);
             return;
         }
         
@@ -170,7 +157,6 @@ class PlayQuestionsView {
             if (this.incorrectQuestions.length > 0) {
                 this.remainingQuestions.push(...this.incorrectQuestions);
                 this.incorrectQuestions = [];
-                this.shuffleQuestions();
             }
         }
         
