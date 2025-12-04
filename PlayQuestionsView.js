@@ -33,33 +33,22 @@ class PlayQuestionsView {
     onStoreUpdated(updatedQuestions) {
         if (!this.isActive) return;
 
-        const currentQuery = this.currentQuestion?.query;
+        // ⛔ Ne JAMAIS modifier remainingQuestions pendant un quiz
+        // → Cela casse l'ordre aléatoire
+        // → Cela recrée un ordre trié par le store
 
-        // 1. Garder uniquement les questions qui existent encore dans le store
-        this.remainingQuestions = this.remainingQuestions.filter(
-            q => updatedQuestions.includes(q) && q.query !== currentQuery
-        );
-
-        // 2. Ajouter les nouvelles questions du store (sans casser l'ordre)
-        updatedQuestions.forEach(q => {
-            const existsInRemaining = this.remainingQuestions.includes(q);
-            const isCurrent = currentQuery && q.query === currentQuery;
-            if (!existsInRemaining && !isCurrent) {
-                this.remainingQuestions.push(q); // ← préserve ordre aléatoire
-            }
-        });
-
-        // 3. Si la question courante a été supprimée : prendre la prochaine de remainingQuestions
-        if (!this.currentQuestion || !updatedQuestions.includes(this.currentQuestion)) {
+        // Si on supprime la question courante : seulement dans ce cas on agit
+        if (this.currentQuestion && !updatedQuestions.includes(this.currentQuestion)) {
             this.currentQuestion = this.remainingQuestions.shift() || null;
+
+            if (!this.currentQuestion) {
+                this.allQuestionsAnsweredOnce = true;
+            }
+
+            this.updateUI();
         }
 
-        // 4. Si plus de questions
-        if (!this.currentQuestion) {
-            this.allQuestionsAnsweredOnce = true;
-        }
-
-        this.updateUI();
+        // Sinon, on ignore l'update
     }
     
     loadQuestions() {
