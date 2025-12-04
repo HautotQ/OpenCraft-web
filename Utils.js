@@ -5,6 +5,37 @@ function navigationButton(root, label, ViewClass, ...args) {
     return btn;
 }
 
+function saveCustomCSS(cssString) {
+    localStorage.setItem("customCSS", cssString);
+    applyCustomCSS(cssString);
+}
+
+function loadCustomCSS() {
+    const css = localStorage.getItem("customCSS_content");
+    if (!css) return;
+    
+    let styleTag = document.getElementById("custom-css");
+    if (!styleTag) {
+        styleTag = document.createElement("style");
+        styleTag.id = "custom-css";
+        document.head.appendChild(styleTag);
+    }
+    
+    styleTag.textContent = css;
+}
+
+function applyCustomCSS(cssString) {
+    let styleTag = document.getElementById("custom-css");
+    
+    if (!styleTag) {
+        styleTag = document.createElement("style");
+        styleTag.id = "custom-css";
+        document.head.appendChild(styleTag);
+    }
+    
+    styleTag.innerHTML = cssString;
+}
+
 class HStack {
     constructor(options = {}) {
         // Crée le conteneur
