@@ -53,8 +53,7 @@ class PlayQuestionsView {
     loadQuestions() {
         this.remainingQuestions = [...this.questionStore.getObservableQuestions()];
         this.shuffleQuestions();
-        this.currentQuestion = this.remainingQuestions[0] || null;
-        this.askNextQuestion(); // va mettre à jour labels et progress
+        this.askNextQuestion(); // ← commence directement par une question aléatoire
     }
     
     shuffleQuestions() {
@@ -158,22 +157,27 @@ class PlayQuestionsView {
     }
     
     askNextQuestion() {
+        // Réinjecter les mauvaises réponses et remélanger
         if (this.shouldReaskIncorrectQuestion) {
             this.shouldReaskIncorrectQuestion = false;
+
             if (this.incorrectQuestions.length > 0) {
                 this.remainingQuestions.push(...this.incorrectQuestions);
                 this.incorrectQuestions = [];
-                this.shuffleQuestions();
+                this.shuffleQuestions(); // ← remélange pour ne jamais avoir d'ordre fixe
             }
         }
-        
+
+        // Si plus aucune question → fin
         if (this.remainingQuestions.length === 0) {
             this.allQuestionsAnsweredOnce = true;
             this.updateUI();
             return;
         }
-        
+
+        // Tirage aléatoire garanti pour TOUTES les questions
         this.currentQuestion = this.remainingQuestions.shift();
+
         this.showingAnswer = false;
         this.userAnswer = "";
         this.answerField.value = "";
