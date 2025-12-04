@@ -17,7 +17,6 @@ class PlayQuestionsView {
         this.isActive = true;
         this.root = root;
         this.initUI();
-        this.shuffleQuestions();
         this.loadQuestions();
 
         this.unsubscribe = this.questionStore.subscribe((u) => this.onStoreUpdated(u));
