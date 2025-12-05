@@ -107,6 +107,11 @@ class PlayQuestionsView {
         this.answerField.placeholder = "Réponse";
         this.answerField.style.width = "100%";
         this.answerField.style.marginBottom = "10px";
+        this.answerField.addEventListener("keydown", (event) => {
+            if (event.key === "Enter") {
+                this.checkAnswer();
+            }
+        });
         
         this.checkButton = document.createElement("button");
         this.checkButton.innerText = "Vérifier la réponse";
