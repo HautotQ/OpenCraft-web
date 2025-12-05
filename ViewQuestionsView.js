@@ -36,8 +36,12 @@ class ViewQuestionsView {
         const clearBtn = document.createElement("button");
         clearBtn.innerText = "Tout supprimer";
         clearBtn.onclick = () => { 
-            this.store.clear();
-//            this.renderList();
+            new Alert(
+                "Supprimer toutes les questions ?",
+                "Elles seront perdues si vous ne les avez pas enregistrées.",
+                () => this.store.clear(),  // OK
+                () => console.log("Annulé") // Annuler
+            );
         };
         hstack.add(clearBtn);
         
