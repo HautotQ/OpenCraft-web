@@ -1,14 +1,12 @@
 // Alert.js
 
 class Alert {
-    constructor(title, message) {
-        this.show(title, message);
+    constructor(title, message, onOk = null, onCancel = null) {
+        this.show(title, message, onOk, onCancel);
     }
     
-    show(titleText, messageText) {
-        // Fond modal
+    show(titleText, messageText, onOk, onCancel) {
         this.modal = document.createElement("div");
-        this.modal.className = "edit-modal";
         this.modal.style.position = "fixed";
         this.modal.style.top = "0";
         this.modal.style.left = "0";
@@ -20,9 +18,7 @@ class Alert {
         this.modal.style.alignItems = "center";
         this.modal.style.zIndex = "1000";
         
-        // Conteneur
         const container = document.createElement("div");
-        container.className = "edit-modal-container";
         container.style.background = "gray";
         container.style.padding = "20px";
         container.style.borderRadius = "8px";
@@ -30,24 +26,39 @@ class Alert {
         container.style.width = "80%";
         container.style.textAlign = "center";
         
-        // Titre
         const title = document.createElement("h2");
         title.innerText = titleText;
         
-        // Message
         const message = document.createElement("div");
         message.style.margin = "15px 0";
         message.innerText = messageText;
         
-        // Bouton
-        const button = document.createElement("button");
-        button.innerText = "OK";
-        button.style.padding = "8px 16px";
-        button.onclick = () => this.close();
+        // OK
+        const okBtn = document.createElement("button");
+        okBtn.innerText = "OK";
+        okBtn.style.padding = "8px 16px";
+        okBtn.onclick = () => {
+            this.close();
+            if (onOk) onOk();
+        };
         
         container.appendChild(title);
         container.appendChild(message);
-        container.appendChild(button);
+        container.appendChild(okBtn);
+        
+        // ANNULER (optionnel)
+        if (onCancel) {
+            const cancelBtn = document.createElement("button");
+            cancelBtn.innerText = "Annuler";
+            cancelBtn.style.padding = "8px 16px";
+            cancelBtn.style.marginLeft = "10px";
+            cancelBtn.onclick = () => {
+                this.close();
+                onCancel();
+            };
+            container.appendChild(cancelBtn);
+        }
+        
         this.modal.appendChild(container);
         document.body.appendChild(this.modal);
     }
