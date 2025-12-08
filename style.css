@@ -18,6 +18,15 @@
     animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
 }
 
+@keyframes typing {
+    from { width: 0; }
+    to { width: 100%; }
+}
+
+@keyframes blink {
+    50% { border-color: transparent; }
+}
+
 body {
     margin: 0;
     font-family: "JetBrains", monospace;
