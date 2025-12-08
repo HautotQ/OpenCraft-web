@@ -57,7 +57,7 @@ class ContentView {
         );
         
         // Contenu par défaut
-        content.innerHTML = "<h2>Bienvenue dans OpenCraft ✨</h2>";
+        content.innerHTML = "<h2 id='terminal-title'>Bienvenue dans OpenCraft ✨</h2>";
         content.style.marginTop = "60px";
     }
 }
