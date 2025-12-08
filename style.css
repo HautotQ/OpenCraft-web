@@ -10,14 +10,16 @@
     text-align: center;
     font-size: 2.5em;
     margin-top: 40px;
-    text-shadow: none;
-        /*0 0 2px #33ff66,
-        0 0 8px #33ff66;*/
     white-space: nowrap;
     overflow: hidden;
     border-right: 2px solid #33ff66;
     width: 0;
     animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
+
+    text-shadow:
+        0 0 2px #33ff66,
+        0 0 8px #33ff66;
+    -webkit-font-smoothing: antialiased;
 }
 
 @keyframes typing {
@@ -102,10 +104,12 @@ p, span {
     animation: blink 1s infinite;
 }
 
+/*
 @keyframes blink {
     0%, 50%, 100% { opacity: 1; }
     25%, 75% { opacity: 0; }
 }
+*/
 
 /* ===== Modal EditQuestionView ===== */
 
