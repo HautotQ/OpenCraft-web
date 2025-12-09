@@ -7,24 +7,22 @@
 }
 
 #terminal-title {
-    display: inline-block; /* essentiel pour la netteté */
-
-    text-align: center;
-    font-size: 2.5em;
-    margin-top: 40px;
+    display: inline-block;
     white-space: nowrap;
     overflow: hidden;
     border-right: 2px solid #33ff66;
-    width: 0;
 
-    animation: typing 3s steps(27, end) forwards, blink 0.7s step-end infinite;
+    /* Animation */
+    width: 0ch;
+    will-change: width; /* ESSENTIEL pour Safari / WebView iOS */
+    animation: typing 3s steps(27, end) forwards,
+               blink 0.7s step-end infinite;
 
+    /* Glow propre */
     text-shadow:
         0 0 1px #33ff66,
         0 0 4px #33ff66;
-
     -webkit-font-smoothing: antialiased;
-    font-family: "JetBrains", monospace;
 }
 
 @keyframes typing {
