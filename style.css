@@ -1,12 +1,14 @@
 /* style.css : style informatique / terminal */
+
 @font-face {
     font-family: "JetBrains";
-    src: url("JetBrainsMono-ExtraBold.ttf") format("truetype");
-    font-weight: normal;
-    font-style: normal;
+    src: url("JetBrainsMono-Regular.ttf") format("truetype");
+    font-weight: 400;
 }
 
 #terminal-title {
+    display: inline-block; /* essentiel pour la netteté */
+
     text-align: center;
     font-size: 2.5em;
     margin-top: 40px;
@@ -14,17 +16,21 @@
     overflow: hidden;
     border-right: 2px solid #33ff66;
     width: 0;
-    animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
+
+    animation: typing 3s steps(40, end) forwards,
+               blink 0.7s step-end infinite;
 
     text-shadow:
-        0 0 2px #33ff66,
-        0 0 8px #33ff66;
+        0 0 1px #33ff66,
+        0 0 4px #33ff66;
+
     -webkit-font-smoothing: antialiased;
+    font-family: "JetBrains", monospace;
 }
 
 @keyframes typing {
     from { width: 0; }
-    to { width: 100%; }
+    to { width: max-content; } /* super important */
 }
 
 @keyframes blink {
