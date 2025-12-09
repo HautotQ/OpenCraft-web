@@ -17,8 +17,7 @@
     border-right: 2px solid #33ff66;
     width: 0;
 
-    animation: typing 3s steps(40, end) forwards,
-               blink 0.7s step-end infinite;
+    animation: typing 3s steps(27, end) forwards, blink 0.7s step-end infinite;
 
     text-shadow:
         0 0 1px #33ff66,
@@ -29,8 +28,8 @@
 }
 
 @keyframes typing {
-    from { width: 0; }
-    to { width: max-content; } /* super important */
+    from { width: 0ch; }
+    to { width: 27ch; }
 }
 
 @keyframes blink {
