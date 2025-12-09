@@ -10,6 +10,8 @@ class ViewQuestionsView {
         target.innerHTML = "";
         
         target.style.marginTop = "50px";
+        target.style.overflowY = "auto";
+        target.style.overflowX = "hidden";
         
         const div = document.createElement("div");
         
