@@ -42,6 +42,7 @@ class HStack {
         this.container = document.createElement("div");
         this.container.style.display = "flex";
         this.container.style.flexDirection = "row";
+        this.container.style.overflowX = "scroll";
         this.container.style.alignItems = options.alignItems || "center"; // "flex-start", "center", "flex-end"
         this.container.style.justifyContent = options.justifyContent || "flex-start"; // "space-between", "center", etc.
         this.container.style.gap = options.spacing ? options.spacing + "px" : "0px"; // espacement entre éléments
