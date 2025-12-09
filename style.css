@@ -15,8 +15,7 @@
     /* Animation */
     width: 0ch;
     will-change: width; /* ESSENTIEL pour Safari / WebView iOS */
-    animation: typing 3s steps(27, end) forwards,
-               blink 0.7s step-end infinite;
+    animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
 
     /* Glow propre */
     text-shadow:
