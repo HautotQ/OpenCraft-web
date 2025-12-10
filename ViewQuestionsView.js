@@ -69,7 +69,7 @@ class ViewQuestionsView {
     importFile() {
         const input = document.createElement("input");
         input.type = "file";
-        input.accept = ".txt,.clist,text/plain,*/*"; 
+        input.accept = "*/*"; 
     
         input.onchange = (event) => {
             const file = event.target.files[0];
