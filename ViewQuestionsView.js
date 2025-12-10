@@ -54,7 +54,7 @@ class ViewQuestionsView {
         
         
         this.listContainer = new ScrollView({
-            height: "calc(100vh - 30px)"
+            height: "calc(100vh - 75px)"
         });
         div.appendChild(filename);
         div.appendChild(this.listContainer.getElement());
