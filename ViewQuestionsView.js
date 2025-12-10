@@ -82,6 +82,7 @@ class ViewQuestionsView {
             }
 
             this.store.clear();
+            this.store.saveQuestions();
         
             const reader = new FileReader();
             reader.onload = (e) => {
