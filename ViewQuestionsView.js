@@ -34,7 +34,8 @@ class ViewQuestionsView {
             this.exportFile();
         };
         hstack.add(exportButton);
-        
+
+        const clearBtnStack = new HStack({ justifyContent: "center" });
         const clearBtn = document.createElement("button");
         clearBtn.innerText = "Tout supprimer";
         clearBtn.onclick = () => { 
@@ -45,7 +46,7 @@ class ViewQuestionsView {
                 () => console.log("Annulé") // Annuler
             );
         };
-        hstack.add(clearBtn);
+        clearBtnStack.add(clearBtn);
         
         const filename = document.createElement("input");
         filename.className = "edit-textarea";
@@ -60,6 +61,7 @@ class ViewQuestionsView {
         this.store.subscribe(() => this.renderList());
                 
         target.appendChild(hstack.getElement());
+        target.appendChild(clearBtnStack.getElement());
         target.appendChild(div);
         this.renderList();
     }
