@@ -69,7 +69,7 @@ class ViewQuestionsView {
     importFile() {
         const input = document.createElement("input");
         input.type = "file";
-        input.accept = ".txt,.clist,text/plain"; 
+        input.accept = ".txt,.clist,text/plain,*/*"; 
     
         input.onchange = (event) => {
             const file = event.target.files[0];
@@ -110,47 +110,47 @@ class ViewQuestionsView {
     }
     
     exportFile() {
-    const questions = this.store.questions;
+        const questions = this.store.questions;
 
-    if (questions.length === 0) {
-        alert("Aucune question à exporter.");
-        return;
+        if (questions.length === 0) {
+            alert("Aucune question à exporter.");
+            return;
+        }
+
+        // Récupérer le nom saisi par l'utilisateur
+        let filename = (this.filenameInput.value || "questions").trim();
+
+        if (filename.length === 0) {
+            filename = "questions";
+        }
+
+        // Ajouter l'extension automatiquement
+        if (!filename.endsWith(".clist")) {
+            filename += ".clist";
+        }
+
+        // Construire le contenu
+        let content = "";
+
+        for (let i = 0; i < questions.length; i++) {
+            const q = questions[i];
+            content += q.query + "\n";
+            content += q.answer + "\n\n";
+        }
+
+        // 🔽 Nouvelle partie : téléchargement dans le navigateur
+        const blob = new Blob([content], { type: "application/clist" });
+        const url = URL.createObjectURL(blob);
+
+        const a = document.createElement("a");
+        a.href = url;
+        a.download = filename;
+        document.body.appendChild(a);
+        a.click();
+        document.body.removeChild(a);
+
+        URL.revokeObjectURL(url); 
     }
-
-    // Récupérer le nom saisi par l'utilisateur
-    let filename = (this.filenameInput.value || "questions").trim();
-
-    if (filename.length === 0) {
-        filename = "questions";
-    }
-
-    // Ajouter l'extension automatiquement
-    if (!filename.endsWith(".clist")) {
-        filename += ".clist";
-    }
-
-    // Construire le contenu
-    let content = "";
-
-    for (let i = 0; i < questions.length; i++) {
-        const q = questions[i];
-        content += q.query + "\n";
-        content += q.answer + "\n\n";
-    }
-
-    // 🔽 Nouvelle partie : téléchargement dans le navigateur
-    const blob = new Blob([content], { type: "application/clist" });
-    const url = URL.createObjectURL(blob);
-
-    const a = document.createElement("a");
-    a.href = url;
-    a.download = filename;
-    document.body.appendChild(a);
-    a.click();
-    document.body.removeChild(a);
-
-    URL.revokeObjectURL(url); 
-}
     
     renderList() {
         const el = this.listContainer.getElement();
