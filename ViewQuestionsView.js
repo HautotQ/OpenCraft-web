@@ -69,12 +69,12 @@ class ViewQuestionsView {
     importFile() {
         const input = document.createElement("input");
         input.type = "file";
-        input.accept = ".txt,.clist,text/plain,*/*"; 
-        
+        input.accept = ".txt,.clist,text/plain"; 
+    
         input.onchange = (event) => {
             const file = event.target.files[0];
             if (!file) return;
-            
+        
             const extension = file.name.split('.').pop().toLowerCase();
             if (extension !== "txt" && extension !== "clist") {
                 alert("Veuillez sélectionner un fichier .txt ou .clist");
@@ -82,28 +82,30 @@ class ViewQuestionsView {
             }
 
             this.store.clear();
-            
+        
             const reader = new FileReader();
             reader.onload = (e) => {
                 const content = e.target.result;
                 const lines = content.split(/\r?\n/).map(line => line.trim());
-                
-                for (let i = 0; i < lines.length; i++) {
+
+                for (let i = 0; i < lines.length; i += 2) {
                     const question = lines[i];
                     const answer = lines[i + 1];
                     if (question && answer) {
                         this.store.addQuestion({ query: question, answer: answer });
-                        i++; // passer à la ligne suivante pour la réponse
                     }
                 }
+
                 this.filenameInput = file.name;
+
+                // 🔥 Le bon endroit : seulement après lecture
+                this.store.saveQuestions();
             };
-            
+        
             reader.readAsText(file);
         };
-        
+    
         input.click();
-        this.store.saveQuestions();
     }
     
     exportFile() {
