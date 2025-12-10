@@ -80,6 +80,8 @@ class ViewQuestionsView {
                 alert("Veuillez sélectionner un fichier .txt ou .clist");
                 return;
             }
+
+            this.store.clear();
             
             const reader = new FileReader();
             reader.onload = (e) => {
