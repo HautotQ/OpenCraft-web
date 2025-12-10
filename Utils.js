@@ -64,32 +64,45 @@ class HStack {
 }
 
 class ScrollView {
-    constructor({ width = "100%", height = "300px", padding = "5px", gap = "5px" } = {}) {
+    constructor({ width = "100%", height = null, padding = "5px", gap = "5px", itemHeight = 50 } = {}) {
+        this.itemHeight = itemHeight;
+        
         this.container = document.createElement("div");
         this.container.style.width = width;
-        this.container.style.height = height;
-        this.container.style.overflowY = "auto"; // scrolling vertical
         this.container.style.padding = padding;
         this.container.style.display = "flex";
         this.container.style.flexDirection = "column";
         this.container.style.gap = gap;
-        this.container.style.border = "1px solid #ccc";
         this.container.style.borderRadius = "4px";
         this.container.style.backgroundColor = "#121212";
+        
+        // Si une hauteur fixe est fournie → on la garde
+        // Sinon → on calcule automatiquement
+        if (height) {
+            this.container.style.height = height;
+        } else {
+            this.updateHeight();
+        }
     }
     
-    // Retourne l’élément HTML pour l’ajouter au DOM
     getElement() {
         return this.container;
     }
     
-    // Ajoute un élément à la ScrollView
     add(element) {
         this.container.appendChild(element);
+        this.updateHeight();
     }
     
-    // Vide tous les éléments
     clear() {
         this.container.innerHTML = "";
+        this.updateHeight();
+    }
+    
+    // 🔥 Calcul dynamique
+    updateHeight() {
+        const count = this.container.children.length;
+        const newHeight = count * this.itemHeight;
+        this.container.style.height = `${newHeight}px`;
     }
 }
