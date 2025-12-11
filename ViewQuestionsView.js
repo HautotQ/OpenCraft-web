@@ -50,6 +50,7 @@ class ViewQuestionsView {
         
         const filename = document.createElement("input");
         filename.className = "edit-textarea";
+        filename.placeholder = "Titre de la liste";
         filename.style.height = "30px";
         this.filenameInput = filename;
         
