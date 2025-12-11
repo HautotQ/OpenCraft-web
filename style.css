@@ -37,7 +37,7 @@
 
 body {
     margin: 0;
-    font-family: "JetBrains", monospace;
+    font-family: "JetBrainsMono", monospace;
     background-color: #121212; /* fond sombre style terminal */
     color: #00ff00; /* texte vert fluo */
     overflow: hidden;
