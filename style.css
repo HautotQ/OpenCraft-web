@@ -15,7 +15,7 @@
     border-right: 2px solid #33ff66;
 
     /* Animation */
-    width: 0ch;
+   /* width: 100vw;*/
     will-change: width; /* ESSENTIEL pour Safari / WebView iOS */
     animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
 
