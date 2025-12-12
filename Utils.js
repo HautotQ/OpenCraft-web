@@ -106,3 +106,31 @@ class ScrollView {
         this.container.style.height = `${newHeight}px`;
     }
 }
+
+class CheckBox {
+    constructor(labelText) {
+        this.labelText = labelText;
+        this.input = null;
+    }
+    
+    view() {
+        const container = document.createElement("label");
+        container.style.display = "flex";
+        container.style.alignItems = "center";
+        container.style.gap = "0.5em";
+        container.textContent = this.labelText;
+        
+        this.input = document.createElement("input");
+        this.input.type = "checkbox";
+        this.input.checked = QuestionStore.coolModeEnabled; // état initial
+        container.prepend(this.input);
+        
+        // Met à jour la variable statique quand l'utilisateur clique
+        this.input.addEventListener("change", () => {
+            QuestionStore.coolModeEnabled = this.input.checked;
+            console.log("coolModeEnabled =", QuestionStore.coolModeEnabled);
+        });
+        
+        return container;
+    }
+}
