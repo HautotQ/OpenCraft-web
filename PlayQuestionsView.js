@@ -1,4 +1,5 @@
 // PlayQuestionsView.js
+
 class PlayQuestionsView {
     constructor(questionStore, onEndView) {
         this.isActive = false;
@@ -14,14 +15,15 @@ class PlayQuestionsView {
     }
     
     show(root) {
+        log("coolModeEnabled = " + QuestionStore.coolModeEnabled);
         this.isActive = true;
         this.root = root;
         this.initUI();
         this.loadQuestions();
-
+        
         this.unsubscribe = this.questionStore.subscribe((u) => this.onStoreUpdated(u));
     }
-
+    
     hide() {
         this.isActive = false;
         if (this.unsubscribe) {
@@ -32,22 +34,22 @@ class PlayQuestionsView {
     
     onStoreUpdated(updatedQuestions) {
         if (!this.isActive) return;
-
+        
         // ⛔ Ne JAMAIS modifier remainingQuestions pendant un quiz
         // → Cela casse l'ordre aléatoire
         // → Cela recrée un ordre trié par le store
-
+        
         // Si on supprime la question courante : seulement dans ce cas on agit
         if (this.currentQuestion && !updatedQuestions.includes(this.currentQuestion)) {
             this.currentQuestion = this.remainingQuestions.shift() || null;
-
+            
             if (!this.currentQuestion) {
                 this.allQuestionsAnsweredOnce = true;
             }
-
+            
             this.updateUI();
         }
-
+        
         // Sinon, on ignore l'update
     }
     
@@ -59,20 +61,20 @@ class PlayQuestionsView {
     
     shuffleQuestions() {
         const arr = this.remainingQuestions;
-
+        
         for (let i = arr.length - 1; i > 0; i--) {
             // Nombre aléatoire vraiment uniforme et plus imprévisible
             const randomValues = new Uint32Array(1);
             crypto.getRandomValues(randomValues);
             const j = randomValues[0] % (i + 1);
-
+            
             [arr[i], arr[j]] = [arr[j], arr[i]];
         }
     }
     
     initUI() {
         this.root.innerHTML = "";
-
+        
         this.root.style.marginTop = "65px";
         
         if (this.questionStore.getObservableQuestions().length === 0) {
@@ -166,24 +168,24 @@ class PlayQuestionsView {
         // Réinjecter les mauvaises réponses et remélanger
         if (this.shouldReaskIncorrectQuestion) {
             this.shouldReaskIncorrectQuestion = false;
-
+            
             if (this.incorrectQuestions.length > 0) {
                 this.remainingQuestions.push(...this.incorrectQuestions);
                 this.incorrectQuestions = [];
                 this.shuffleQuestions(); // ← remélange pour ne jamais avoir d'ordre fixe
             }
         }
-
+        
         // Si plus aucune question → fin
         if (this.remainingQuestions.length === 0) {
             this.allQuestionsAnsweredOnce = true;
             this.updateUI();
             return;
         }
-
+        
         // Tirage aléatoire garanti pour TOUTES les questions
         this.currentQuestion = this.remainingQuestions.shift();
-
+        
         this.showingAnswer = false;
         this.userAnswer = "";
         this.answerField.value = "";
@@ -197,7 +199,7 @@ class PlayQuestionsView {
         if (this.userAnswer === "") {
             new Alert("Réponse manquante", `La réponse correcte était :\n${this.currentQuestion.answer}`);
             this.markIncorrect();
-        } else if (this.userAnswer === correctAnswer || this.isApproximatelyEqual(this.userAnswer, correctAnswer)) {
+        } else if (this.userAnswer === correctAnswer || (QuestionStore.coolModeEnabled && this.isApproximatelyEqual(this.userAnswer, correctAnswer))) {
             if (!this.incorrectQuestionSet.has(this.currentQuestion)) this.score++;
             this.askNextQuestion();
         } else {
@@ -225,9 +227,8 @@ class PlayQuestionsView {
     }
     
     isApproximatelyEqual(a, b) {
-        const d = this.levenshteinDistance(a, b);
-        const max = Math.floor(b.length * 0.2); // tolère 20 % d’erreurs
-        return d <= max;
+        const normalize = str => str.normalize("NFD").replace(/[\u0300-\u036f]/g, "").toLowerCase();
+        return this.levenshteinDistance(normalize(a), normalize(b)) <= Math.ceil(normalize(b).length * 0.2);
     }
     
     levenshteinDistance(a, b) {
