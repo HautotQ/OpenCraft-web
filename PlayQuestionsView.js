@@ -250,3 +250,5 @@ class PlayQuestionsView {
         return matrix[a.length][b.length];
     }
 }
+
+window.PlayQuestionsView = PlayQuestionsView;
