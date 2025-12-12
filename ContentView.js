@@ -1,7 +1,5 @@
 // ContentView.js
 
-// ContentView.js
-
 class ContentView {
     
     show() {
