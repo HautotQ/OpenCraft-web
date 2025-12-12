@@ -48,7 +48,7 @@ class ContentView {
             navigationButton(content, "Voir les questions", ViewQuestionsView, questionStore)
         );
         menuBar.appendChild(
-            navigationButton(content, "Jouer les Questions", PlayQuestionsView, questionStore)
+            navigationButton(content, "Jouer les Questions", window.PlayQuestionsView, questionStore)
         );
         menuBar.appendChild(
             navigationButton(content, "Paramètres", SettingsView, content)
