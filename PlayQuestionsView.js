@@ -15,7 +15,7 @@ class PlayQuestionsView {
     }
     
     show(root) {
-        log("coolModeEnabled = " + QuestionStore.coolModeEnabled);
+        //log("coolModeEnabled = " + QuestionStore.coolModeEnabled);
         this.isActive = true;
         this.root = root;
         this.initUI();
