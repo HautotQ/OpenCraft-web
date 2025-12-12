@@ -1,6 +1,8 @@
 // QuestionStore.js
 
 class QuestionStore {
+    static coolModeEnabled = false;
+    
     constructor() {
         this.STORAGE_KEY = "opencraft-questions";
         
