@@ -19,7 +19,9 @@ class SettingsView {
             navigationButton(this.target, "Modifier le CSS", CssImporterView, this.target)
         );
         
+        const checkCoolMode = new CheckBox("Mode Cool");
+                
         this.target.appendChild(navCSS);
+        this.target.appendChild(checkCoolMode.view());
     }
-    
 }
