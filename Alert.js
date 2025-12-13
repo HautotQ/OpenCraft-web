@@ -7,36 +7,22 @@ class Alert {
     
     show(titleText, messageText, onOk, onCancel) {
         this.modal = document.createElement("div");
-        this.modal.style.position = "fixed";
-        this.modal.style.top = "0";
-        this.modal.style.left = "0";
-        this.modal.style.width = "100%";
-        this.modal.style.height = "100%";
-        this.modal.style.background = "rgba(0,0,0,0.5)";
-        this.modal.style.display = "flex";
-        this.modal.style.justifyContent = "center";
-        this.modal.style.alignItems = "center";
-        this.modal.style.zIndex = "1000";
+        this.modal.className = "alert";
         
         const container = document.createElement("div");
-        container.style.background = "gray";
-        container.style.padding = "20px";
-        container.style.borderRadius = "8px";
-        container.style.maxWidth = "400px";
-        container.style.width = "80%";
-        container.style.textAlign = "center";
+        container.className = "alert-container";
         
         const title = document.createElement("h2");
         title.innerText = titleText;
         
         const message = document.createElement("div");
-        message.style.margin = "15px 0";
+        message.className = "alert-message";
         message.innerText = messageText;
         
         // OK
         const okBtn = document.createElement("button");
         okBtn.innerText = "OK";
-        okBtn.style.padding = "8px 16px";
+        okBtn.className = "alert-btn";
         okBtn.onclick = () => {
             this.close();
             if (onOk) onOk();
@@ -50,8 +36,7 @@ class Alert {
         if (onCancel) {
             const cancelBtn = document.createElement("button");
             cancelBtn.innerText = "Annuler";
-            cancelBtn.style.padding = "8px 16px";
-            cancelBtn.style.marginLeft = "10px";
+            cancelBtn.className = "alert-btn";
             cancelBtn.onclick = () => {
                 this.close();
                 onCancel();
