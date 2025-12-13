@@ -7,9 +7,8 @@ class AddQuestionView {
     
     show(target) {
         target.innerHTML = ""; // on vide seulement le contenu, pas le menu
-
-        target.style.marginTop = "0px";
-        target.style.marginTop = "120px";
+        
+        target.style.marginTop = "50px";
         
         const div = document.createElement("div");
         
@@ -18,28 +17,13 @@ class AddQuestionView {
         div.appendChild(title);
         
         const q = document.createElement("input");
-        q.type = "text";
         q.className = "edit-textarea";
-        q.setAttribute("autocorrect", "off");
-        q.setAttribute("autocomplete", "off");
-        q.setAttribute("autocapitalize", "off");
-        q.setAttribute("spellcheck", "false");
-        q.style.fontSize = "30px";
         q.placeholder = "Question";
-        q.style.display = "block";
-        q.style.marginBottom = "10px";
         div.appendChild(q);
-
+        
         const a = document.createElement("input");
-        a.type = "text";
         a.className = "edit-textarea";
-        a.setAttribute("autocorrect", "off");
-        a.setAttribute("autocomplete", "off");
-        a.setAttribute("autocapitalize", "off");
-        a.setAttribute("spellcheck", "false");
-        a.style.fontSize = "30px";
         a.placeholder = "Réponse";
-        a.style.display = "block";
         div.appendChild(a);
         
         const add = document.createElement("button");
@@ -49,6 +33,7 @@ class AddQuestionView {
                 this.store.addQuestion({ query: q.value, answer: a.value });
                 q.value = "";
                 a.value = "";
+                alert("Ajouté !");
             }
         };
         div.appendChild(add);
