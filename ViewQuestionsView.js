@@ -15,7 +15,7 @@ class ViewQuestionsView {
         
         const div = document.createElement("div");
         
-        const hstack = new HStack({ spacing: 10, justifyContent: "center" });
+        const hstack = new HStack();
         
         const title = document.createElement("h2");
         title.innerText = "Gestion des Questions";
@@ -34,7 +34,7 @@ class ViewQuestionsView {
             this.exportFile();
         };
         hstack.add(exportButton);
-
+        
         const clearBtnStack = new HStack({ justifyContent: "center" });
         const clearBtn = document.createElement("button");
         clearBtn.innerText = "Tout supprimer";
@@ -55,7 +55,7 @@ class ViewQuestionsView {
         this.filenameInput = filename;
         
         
-        this.listContainer = new ScrollView({ itemHeight: 60 });
+        this.listContainer = new ScrollView();
         div.appendChild(filename);
         div.appendChild(this.listContainer.getElement());
         
@@ -110,45 +110,45 @@ class ViewQuestionsView {
     
     exportFile() {
         const questions = this.store.questions;
-
+        
         if (questions.length === 0) {
             alert("Aucune question à exporter.");
             return;
         }
-
+        
         // Récupérer le nom saisi par l'utilisateur
         let filename = (this.filenameInput.value || "questions").trim();
-
+        
         if (filename.length === 0) {
             filename = "questions";
+            return;
         }
-
+        
         // Ajouter l'extension automatiquement
-        if (!filename.endsWith(".clist")) {
-            filename += ".clist";
-        }
-
+//        if (!filename.endsWith(".clist")) {
+//            filename += ".clist";
+//        }
+        
         // Construire le contenu
         let content = "";
-
+        
         for (let i = 0; i < questions.length; i++) {
             const q = questions[i];
             content += q.query + "\n";
             content += q.answer + "\n\n";
         }
-
-        // 🔽 Nouvelle partie : téléchargement dans le navigateur
-        const blob = new Blob([content], { type: "application/clist" });
-        const url = URL.createObjectURL(blob);
-
-        const a = document.createElement("a");
-        a.href = url;
-        a.download = filename;
-        document.body.appendChild(a);
-        a.click();
-        document.body.removeChild(a);
-
-        URL.revokeObjectURL(url); 
+        
+        // Envoyer le texte + le nom du fichier à Swift
+        const payload = {
+            filename: filename,
+            content: content
+        };
+        
+        if (window.webkit?.messageHandlers?.exportFile) {
+            window.webkit.messageHandlers.exportFile.postMessage(payload);
+        } else {
+            alert("exportFile() non connecté côté Swift");
+        }
     }
     
     renderList() {
@@ -169,30 +169,17 @@ class ViewQuestionsView {
         for (let i = 0; i < questions.length; i++) {
             const q = questions[i];
             const container = document.createElement("div");
-            container.style.border = "1px solid #ccc";
-            container.style.padding = "8px";
-            container.style.marginBottom = "6px";
-            container.style.borderRadius = "4px";
-            container.style.position = "relative";
+            container.className = "render-list-container";
             container.innerText = `Q: ${q.query}\nR: ${q.answer}`;
             
             const menu = document.createElement("div");
+            menu.className = "menu";
             menu.setAttribute("menu", "true");
-            menu.style.position = "absolute";
-            menu.style.top = "0";
-            menu.style.right = "0";
-            menu.style.backgroundColor = "#fff";
-            menu.style.border = "1px solid #999";
-            menu.style.padding = "5px";
-            menu.style.display = "none";
-            menu.style.zIndex = "10";
-            menu.style.borderRadius = "4px";
-            menu.style.boxShadow = "0 2px 5px rgba(0,0,0,0.2)";
             
             // Bouton Modifier → ouvre EditQuestionView
             const modifyBtn = document.createElement("button");
+            modifyBtn.className = "modify-btn";
             modifyBtn.innerText = "Modifier";
-            modifyBtn.style.display = "block";
             modifyBtn.onclick = (e) => {
                 e.stopPropagation();
                 const index = this.store.questions.indexOf(q);
@@ -203,14 +190,13 @@ class ViewQuestionsView {
                     });
                     editView.show(this.target); // target principal pour afficher la modale
                 }
-                menu.style.display = "none";
             };
             menu.appendChild(modifyBtn);
             
             // Bouton Supprimer
             const deleteBtn = document.createElement("button");
+            deleteBtn.className = "del-btn";
             deleteBtn.innerText = "Supprimer";
-            deleteBtn.style.display = "block";
             deleteBtn.onclick = (e) => {
                 e.stopPropagation();
                 this.store.deleteQuestion(q);
