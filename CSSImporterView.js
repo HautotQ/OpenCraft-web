@@ -17,7 +17,6 @@ class CssImporterView {
         this.target.appendChild(title);
         
         const inputFile = document.createElement("input");
-        inputFile.className = "edit-textarea";
         inputFile.type = "file";
         inputFile.accept = ".css";
         this.target.appendChild(inputFile);
@@ -27,8 +26,8 @@ class CssImporterView {
         this.target.appendChild(info);
         
         const resetBtn = document.createElement("button");
+        resetBtn.className = "reset-btn";
         resetBtn.textContent = "Réinitialiser le CSS par défaut";
-        resetBtn.style.marginTop = "10px";
         this.target.appendChild(resetBtn);
         
         // Import d'un CSS personnalisé
