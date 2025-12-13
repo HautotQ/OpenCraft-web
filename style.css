@@ -12,23 +12,19 @@
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
-    border-right: 2px solid #33ff66;
-
+    border-right: 3px solid #33ff66;
+    
     /* Animation */
-   /* width: 100vw;*/
+    /* width: 100vw;*/
     will-change: width; /* ESSENTIEL pour Safari / WebView iOS */
-    animation: typing 3s steps(40, end) forwards, blink 0.7s step-end infinite;
-
-    /* Glow propre */
-    text-shadow:
-        0 0 1px #33ff66,
-        0 0 4px #33ff66;
+    animation: typing 3s steps(50, end) forwards, blink 0.7s step-end infinite;
+    
     -webkit-font-smoothing: antialiased;
 }
 
 @keyframes typing {
     from { width: 0ch; }
-    to { width: 27ch; }
+    to { width: 30ch; }
 }
 
 @keyframes blink {
@@ -46,8 +42,8 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: center;
-/*    align-items: center;*/
-/*    border: 2px solid #00ff00;*/
+    /*    align-items: center;*/
+    /*    border: 2px solid #00ff00;*/
     padding: 20px;
     box-sizing: border-box;
     autocorrect: off;
@@ -107,13 +103,6 @@ p, span {
     background-color: #00ff00;
     animation: blink 1s infinite;
 }
-
-/*
-@keyframes blink {
-    0%, 50%, 100% { opacity: 1; }
-    25%, 75% { opacity: 0; }
-}
-*/
 
 /* ===== Modal EditQuestionView ===== */
 
@@ -192,4 +181,124 @@ p, span {
     box-sizing: border-box;
     margin-bottom: 12px;
     resize: none;
+    font-size: 15px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.alert {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0,0,0,0.5);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 1000;
+}
+
+.alert-container {
+    background: gray;
+    padding: 20px;
+    border-radius: 8px;
+    max-width: 400px;
+    width: 80%;
+    text-align: center;
+}
+
+.alert-message {
+    margin: 15px 0;
+}
+
+.alert-btn {
+    padding: 8px 16px;
+    margin-left: 10px;
+}
+
+#app-container {
+    display: flex;
+    flex-direction: column;
+    height: 100vh;
+}
+
+.menu-bar {
+    background: #ddd;
+    padding: 10px;
+    display: flex;
+    gap: 10px;
+    overflow-x: auto;
+    white-space: nowrap;
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    z-index: 100;
+}
+
+#content {
+    flex: 1;
+    padding: 20px;
+}
+
+.reset-btn {
+    margin-top: 10px;
+}
+
+.no-questions {
+    margin-top: 120px;
+}
+
+.question-label {
+    font-weight: bold;
+    font-size: 18px;
+    margin: 10px 0;
+}
+
+.progress-bar {
+    background: #111;
+}
+
+.answer-field {
+    width: 100%;
+    height: 70px;
+    background-color: #111;
+    color: #00ff00;
+    border: 1px solid #00ff00;
+    padding: 8px;
+    font-family: "JetBrainsMono", monospace;
+    box-sizing: border-box;
+    margin-bottom: 12px;
+    resize: none;
+    font-size: 30px;
+    display: block;
+    margin-bottom: 10px;
+}
+
+.h-stack {
+    justify-content: center;
+    display: flex;
+    flex-direction: row;
+    align-items: center;
+    overflow-x: scroll;
+    gap: 10px;
+}
+
+.scroll-view {
+    item-height: 60;
+    width: 100%;
+    height: auto;
+    padding: 5px;
+    gap: 5px;
+    display: flex;
+    flex-direction: column;
+    border-radius: 4px;
+    background-color: #121212;
+}
+
+.check-box {
+    display: flex;
+    align-items: center;
+    gap: 0.5em;
 }
