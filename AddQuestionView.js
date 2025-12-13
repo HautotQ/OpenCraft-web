@@ -1,43 +1,57 @@
-// AddQuestionView.js
+// Alert.js
 
-class AddQuestionView {
-    constructor(store) {
-        this.store = store;
+class Alert {
+    constructor(title, message, onOk = null, onCancel = null) {
+        this.show(title, message, onOk, onCancel);
     }
     
-    show(target) {
-        target.innerHTML = ""; // on vide seulement le contenu, pas le menu
+    show(titleText, messageText, onOk, onCancel) {
+        this.modal = document.createElement("div");
+        this.modal.className = "alert";
         
-        target.style.marginTop = "50px";
-        
-        const div = document.createElement("div");
+        const container = document.createElement("div");
+        container.className = "alert-container";
         
         const title = document.createElement("h2");
-        title.innerText = "Ajouter une Question";
-        div.appendChild(title);
+        title.innerText = titleText;
         
-        const q = document.createElement("input");
-        q.className = "edit-textarea";
-        q.placeholder = "Question";
-        div.appendChild(q);
+        const message = document.createElement("div");
+        message.className = "alert-message";
+        message.innerText = messageText;
         
-        const a = document.createElement("input");
-        a.className = "edit-textarea";
-        a.placeholder = "Réponse";
-        div.appendChild(a);
-        
-        const add = document.createElement("button");
-        add.innerText = "Ajouter";
-        add.onclick = () => {
-            if (q.value && a.value) {
-                this.store.addQuestion({ query: q.value, answer: a.value });
-                q.value = "";
-                a.value = "";
-                alert("Ajouté !");
-            }
+        // OK
+        const okBtn = document.createElement("button");
+        okBtn.innerText = "OK";
+        okBtn.className = "alert-btn";
+        okBtn.onclick = () => {
+            this.close();
+            if (onOk) onOk();
         };
-        div.appendChild(add);
         
-        target.appendChild(div);
+        container.appendChild(title);
+        container.appendChild(message);
+        container.appendChild(okBtn);
+        
+        // ANNULER (optionnel)
+        if (onCancel) {
+            const cancelBtn = document.createElement("button");
+            cancelBtn.innerText = "Annuler";
+            cancelBtn.className = "alert-btn";
+            cancelBtn.onclick = () => {
+                this.close();
+                onCancel();
+            };
+            container.appendChild(cancelBtn);
+        }
+        
+        this.modal.appendChild(container);
+        document.body.appendChild(this.modal);
+    }
+    
+    close() {
+        if (this.modal && this.modal.parentNode) {
+            this.modal.parentNode.removeChild(this.modal);
+            this.modal = null;
+        }
     }
 }
