@@ -24,23 +24,13 @@ class EditQuestionView {
         
         // Champ question
         const queryInput = document.createElement("textarea");
-        queryInput.className = "edit-textarea";   // ← CORRECTION
-        queryInput.setAttribute("autocorrect", "off");
-        queryInput.setAttribute("autocomplete", "off");
-        queryInput.setAttribute("autocapitalize", "off");
-        queryInput.setAttribute("spellcheck", "false");
-        queryInput.style.fontSize = "15px";
+        queryInput.className = "edit-textarea";
         queryInput.value = this.query;
         container.appendChild(queryInput);
         
         // Champ réponse
         const answerInput = document.createElement("textarea");
-        answerInput.className = "edit-textarea";  // ← CORRECTION
-        answerInput.setAttribute("autocorrect", "off");
-        answerInput.setAttribute("autocomplete", "off");
-        answerInput.setAttribute("autocapitalize", "off");
-        answerInput.setAttribute("spellcheck", "false");
-        answerInput.style.fontSize = "15px";
+        answerInput.className = "edit-textarea";
         answerInput.value = this.answer;
         container.appendChild(answerInput);
         
