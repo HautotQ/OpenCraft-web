@@ -15,7 +15,7 @@ class PlayQuestionsView {
     }
     
     show(root) {
-        //log("coolModeEnabled = " + QuestionStore.coolModeEnabled);
+//        log("coolModeEnabled = " + QuestionStore.coolModeEnabled);
         this.isActive = true;
         this.root = root;
         this.initUI();
@@ -79,7 +79,7 @@ class PlayQuestionsView {
         
         if (this.questionStore.getObservableQuestions().length === 0) {
             const label = document.createElement("div");
-            label.style.marginTop = "120px";
+            label.className = "no-questions";
             label.innerText = "Pas de questions enregistrées...";
             this.root.appendChild(label);
             return;
@@ -89,26 +89,21 @@ class PlayQuestionsView {
         this.remainingLabel = document.createElement("div");
         this.progressLabel = document.createElement("div");
         this.progressBar = document.createElement("progress");
-        this.progressBar.style.background = "#111";
+        this.progressBar.className = "progress-bar";
         this.progressBar.max = 1;
         this.progressBar.value = 0;
         
         this.questionLabel = document.createElement("div");
-        this.questionLabel.style.fontWeight = "bold";
-        this.questionLabel.style.fontSize = "18px";
-        this.questionLabel.style.margin = "10px 0";
+        this.questionLabel.className = "question-label";
         
         this.answerField = document.createElement("input");
-        this.answerField.className = "edit-textarea";
+        this.answerField.className = "answer-field";
         this.answerField.setAttribute("autocorrect", "off");
         this.answerField.setAttribute("autocomplete", "off");
         this.answerField.setAttribute("autocapitalize", "off");
         this.answerField.setAttribute("spellcheck", "false");
-        this.answerField.style.fontSize = "30px";
         this.answerField.type = "text";
         this.answerField.placeholder = "Réponse";
-        this.answerField.style.width = "100%";
-        this.answerField.style.marginBottom = "10px";
         this.answerField.addEventListener("keydown", (event) => {
             if (event.key === "Enter") {
                 this.checkAnswer();
@@ -137,6 +132,7 @@ class PlayQuestionsView {
         if (total === 0) {
             this.root.innerHTML = "";
             const label = document.createElement("div");
+            label.className = "no-questions";
             label.innerText = "Pas de questions enregistrées...";
             this.root.appendChild(label);
             return;
