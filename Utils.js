@@ -36,16 +36,17 @@ function applyCustomCSS(cssString) {
     styleTag.innerHTML = cssString;
 }
 
+function log(msg) {
+    if (window.webkit && window.webkit.messageHandlers && window.webkit.messageHandlers["console.log"]) {
+        window.webkit.messageHandlers["console.log"].postMessage(msg);
+    }
+}
+
 class HStack {
-    constructor(options = {}) {
+    constructor() {
         // Crée le conteneur
         this.container = document.createElement("div");
-        this.container.style.display = "flex";
-        this.container.style.flexDirection = "row";
-        this.container.style.overflowX = "scroll";
-        this.container.style.alignItems = options.alignItems || "center"; // "flex-start", "center", "flex-end"
-        this.container.style.justifyContent = options.justifyContent || "flex-start"; // "space-between", "center", etc.
-        this.container.style.gap = options.spacing ? options.spacing + "px" : "0px"; // espacement entre éléments
+        this.container.className = "h-stack";
     }
     
     // Ajouter un élément au HStack
@@ -64,25 +65,15 @@ class HStack {
 }
 
 class ScrollView {
-    constructor({ width = "100%", height = null, padding = "5px", gap = "5px", itemHeight = 50 } = {}) {
-        this.itemHeight = itemHeight;
-        
+    constructor(height = null) {
         this.container = document.createElement("div");
-        this.container.style.width = width;
-        this.container.style.padding = padding;
-        this.container.style.display = "flex";
-        this.container.style.flexDirection = "column";
-        this.container.style.gap = gap;
-        this.container.style.borderRadius = "4px";
-        this.container.style.backgroundColor = "#121212";
+        this.container.className = "scroll-view";
         
-        // Si une hauteur fixe est fournie → on la garde
-        // Sinon → on calcule automatiquement
+        // Hauteur fixe uniquement si fournie
         if (height) {
             this.container.style.height = height;
-        } else {
-            this.updateHeight();
         }
+        // sinon → hauteur automatique (CSS)
     }
     
     getElement() {
@@ -91,19 +82,10 @@ class ScrollView {
     
     add(element) {
         this.container.appendChild(element);
-        this.updateHeight();
     }
     
     clear() {
         this.container.innerHTML = "";
-        this.updateHeight();
-    }
-    
-    // 🔥 Calcul dynamique
-    updateHeight() {
-        const count = this.container.children.length;
-        const newHeight = count * this.itemHeight;
-        this.container.style.height = `${newHeight}px`;
     }
 }
 
@@ -115,9 +97,7 @@ class CheckBox {
     
     view() {
         const container = document.createElement("label");
-        container.style.display = "flex";
-        container.style.alignItems = "center";
-        container.style.gap = "0.5em";
+        container.className = "check-box";
         container.textContent = this.labelText;
         
         this.input = document.createElement("input");
