@@ -18,11 +18,19 @@ class AddQuestionView {
         
         const q = document.createElement("input");
         q.className = "edit-textarea";
+        q.setAttribute("autocorrect", "off");
+        q.setAttribute("autocomplete", "off");
+        q.setAttribute("autocapitalize", "off");
+        q.setAttribute("spellcheck", "false");
         q.placeholder = "Question";
         div.appendChild(q);
         
         const a = document.createElement("input");
         a.className = "edit-textarea";
+        a.setAttribute("autocorrect", "off");
+        a.setAttribute("autocomplete", "off");
+        a.setAttribute("autocapitalize", "off");
+        a.setAttribute("spellcheck", "false");
         a.placeholder = "Réponse";
         div.appendChild(a);
         
