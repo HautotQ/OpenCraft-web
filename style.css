@@ -257,6 +257,7 @@ p, span {
 }
 
 .progress-bar {
+    width: 100vw;
     background: #111;
 }
 
