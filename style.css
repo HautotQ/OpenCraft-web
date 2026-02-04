@@ -257,8 +257,11 @@ p, span {
 }
 
 .progress-bar {
-    width: 100vw;
+    width: calc(100vw - 40px); /* 20px de chaque côté */
+    margin: 0 20px; /* espace gauche et droite */
     background: #111;
+    height: 20px; /* tu peux ajuster la hauteur */
+    border-radius: 10px; /* optionnel, arrondi des bords */
 }
 
 .answer-field {
