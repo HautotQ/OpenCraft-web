@@ -7,15 +7,14 @@ class AddQuestionView {
     
     show(target) {
         target.innerHTML = ""; // on vide seulement le contenu, pas le menu
-        
         target.style.marginTop = "50px";
-        
+    
         const div = document.createElement("div");
-        
+    
         const title = document.createElement("h2");
         title.innerText = "Ajouter une Question";
         div.appendChild(title);
-        
+    
         const q = document.createElement("input");
         q.className = "edit-textarea";
         q.setAttribute("autocorrect", "off");
@@ -24,7 +23,7 @@ class AddQuestionView {
         q.setAttribute("spellcheck", "false");
         q.placeholder = "Question";
         div.appendChild(q);
-        
+    
         const a = document.createElement("input");
         a.className = "edit-textarea";
         a.setAttribute("autocorrect", "off");
@@ -33,7 +32,7 @@ class AddQuestionView {
         a.setAttribute("spellcheck", "false");
         a.placeholder = "Réponse";
         div.appendChild(a);
-        
+    
         const add = document.createElement("button");
         add.innerText = "Ajouter";
         add.onclick = () => {
@@ -44,7 +43,11 @@ class AddQuestionView {
             }
         };
         div.appendChild(add);
-        
+    
         target.appendChild(div);
+
+        // Focus sur le champ question et scroll vers le haut
+        q.focus();
+        q.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 }
