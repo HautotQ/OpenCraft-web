@@ -49,7 +49,7 @@ class CssImporterView {
             link.click();
     
             document.body.removeChild(link);
-        });
+        };
 
         this.target.appendChild(downloadDefaultCSS);
         
