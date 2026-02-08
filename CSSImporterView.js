@@ -29,6 +29,29 @@ class CssImporterView {
         resetBtn.className = "reset-btn";
         resetBtn.textContent = "Réinitialiser le CSS par défaut";
         this.target.appendChild(resetBtn);
+
+        const downloadDefaultCSS = document.createElement("button");
+        downloadDefaultCSS.className = "reset-btn";
+        downloadDefaultCSS.textContent = "Vous voulez créer votre propre CSS ? Télécharger le modèle ici.";
+
+        downloadDefaultCSS.addEventListener("click", () => {
+            const link = document.createElement("a");
+    
+            // Fichier dans le même dossier que le JS
+            link.href = "./style.css";
+    
+            // Nom du fichier téléchargé
+            link.download = "style.css";
+    
+            // Nécessaire pour Firefox
+            document.body.appendChild(link);
+    
+            link.click();
+    
+            document.body.removeChild(link);
+        });
+
+        this.target.appendChild(downloadDefaultCSS);
         
         // Import d'un CSS personnalisé
         inputFile.addEventListener("change", () => {
