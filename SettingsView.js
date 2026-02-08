@@ -18,6 +18,10 @@ class SettingsView {
         navCSS.appendChild(
             navigationButton(this.target, "Modifier le CSS", CssImporterView, this.target)
         );
+
+        const playTitle = document.createElement("h2");
+        playTitle.textContent = "Jouer les Questions";
+        this.target.appendChild(playTitle);
         
         const checkCoolMode = new CheckBox("Mode Cool");
                 
