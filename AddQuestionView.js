@@ -8,6 +8,7 @@ class AddQuestionView {
     show(target) {
         target.innerHTML = ""; // on vide seulement le contenu, pas le menu
         target.style.marginTop = "50px";
+        target.style.overflow = "hidden";
     
         const div = document.createElement("div");
     
@@ -47,7 +48,7 @@ class AddQuestionView {
         target.appendChild(div);
 
         // Focus sur le champ question et scroll vers le haut
-        q.focus();
-        q.scrollIntoView({ behavior: "smooth", block: "start" });
+        //q.focus();
+        //q.scrollIntoView({ behavior: "smooth", block: "start" });
     }
 }
