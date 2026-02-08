@@ -90,9 +90,21 @@ class ScrollView {
 }
 
 class CheckBox {
-    constructor(labelText) {
+    constructor(labelText, storageKey = "coolModeEnabled") {
         this.labelText = labelText;
+        this.storageKey = storageKey;
         this.input = null;
+    }
+    
+    // Lire la valeur sauvegardée
+    loadState() {
+        const saved = localStorage.getItem(this.storageKey);
+        return saved === "true"; // convertit string → bool
+    }
+    
+    // Sauvegarder la valeur
+    saveState(value) {
+        localStorage.setItem(this.storageKey, value);
     }
     
     view() {
@@ -102,13 +114,23 @@ class CheckBox {
         
         this.input = document.createElement("input");
         this.input.type = "checkbox";
-        this.input.checked = QuestionStore.coolModeEnabled; // état initial
+        
+        // Charger l’état sauvegardé
+        const savedState = this.loadState();
+        
+        this.input.checked = savedState;
+        QuestionStore.coolModeEnabled = savedState;
+        
         container.prepend(this.input);
         
-        // Met à jour la variable statique quand l'utilisateur clique
+        // Sauvegarder quand ça change
         this.input.addEventListener("change", () => {
-            QuestionStore.coolModeEnabled = this.input.checked;
-            console.log("coolModeEnabled =", QuestionStore.coolModeEnabled);
+            const value = this.input.checked;
+            
+            QuestionStore.coolModeEnabled = value;
+            this.saveState(value);
+            
+            console.log("coolModeEnabled =", value);
         });
         
         return container;
