@@ -34,7 +34,7 @@ class CssImporterView {
         downloadDefaultCSS.className = "reset-btn";
         downloadDefaultCSS.textContent = "Vous voulez créer votre propre CSS ? Télécharger le modèle ici.";
 
-        downloadDefaultCSS.addEventListener("click", () => {
+        downloadDefaultCSS.onClick = () => {
             const link = document.createElement("a");
     
             // Fichier dans le même dossier que le JS
