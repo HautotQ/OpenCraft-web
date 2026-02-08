@@ -35,21 +35,33 @@ class CssImporterView {
         downloadDefaultCSS.textContent = "Vous voulez créer votre propre CSS ? Télécharger le modèle ici.";
 
         
-        downloadDefaultCSS.addEventListener("click", () => {
-            const link = document.createElement("a");
-    
-            // Fichier dans le même dossier que le JS
-            link.href = "./style.css";
-    
-            // Nom du fichier téléchargé
-            link.download = "style.css";
-    
-            // Nécessaire pour Firefox
-            document.body.appendChild(link);
-    
-            link.click();
-    
-            document.body.removeChild(link);
+        downloadDefaultCSS.addEventListener("click", async () => {
+            try {
+                const res = await fetch("./style.css");
+
+                if (!res.ok) {
+                    throw new Error("Impossible de charger style.css");
+                }
+
+                const content = await res.text();
+
+                const blob = new Blob([content], { type: "text/css;charset=utf-8;" });
+                const url = URL.createObjectURL(blob);
+
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = "style.css";
+
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+
+                URL.revokeObjectURL(url);
+
+            } catch (err) {
+                console.error("Erreur téléchargement CSS :", err);
+                alert("Le téléchargement du modèle CSS a échoué.");
+            }
         });
 
 
