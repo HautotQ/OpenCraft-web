@@ -21,11 +21,11 @@ class SettingsView {
 
         const playTitle = document.createElement("h2");
         playTitle.textContent = "Jouer les Questions";
-        this.target.appendChild(playTitle);
         
         const checkCoolMode = new CheckBox("Mode Cool");
                 
         this.target.appendChild(navCSS);
+        this.target.appendChild(playTitle);
         this.target.appendChild(checkCoolMode.view());
     }
 }
