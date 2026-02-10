@@ -88,28 +88,35 @@ class ViewQuestionsView {
             const reader = new FileReader();
             reader.onload = (e) => {
                 const content = e.target.result;
-                const lines = content.split(/\r?\n/).map(line => line.trim());
     
-                for (let i = 0; i < lines.length; i++) {
-                    const question = lines[i];
-                    const answer = lines[i + 1];
+                // Normaliser les retours ligne
+                const blocks = content
+                    .replace(/\r/g, "")
+                    .split("\n\n")          // séparer par bloc
+                    .map(b => b.trim())
+                    .filter(b => b.length > 0);
+    
+                this.store.clear();
+    
+                blocks.forEach(block => {
+                    const lines = block.split("\n").map(l => l.trim());
+        
+                    const question = lines[0];
+                    const answer   = lines[1];
+        
                     if (question && answer) {
-                        this.store.addQuestion({ query: question, answer: answer });
-                        i++;
-                    }
+                    this.store.addQuestion({
+                        query: question,
+                        answer: answer
+                    });
                 }
+            });
     
-                // 🔽 Nom du fichier sans extension
-                const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+            // 🔽 Nom sans extension
+            const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
     
-                // 🔽 Remettre dans l’input
-                this.filenameInput.value = nameWithoutExt;
-    
-                // 🔽 Sauvegarder si tu as un système de save
-                this.store.saveQuestions(nameWithoutExt);
-            };
-            
-            reader.readAsText(file);
+            this.filenameInput.value = nameWithoutExt;
+            this.store.saveQuestions(nameWithoutExt);
         };
         
         input.click();
