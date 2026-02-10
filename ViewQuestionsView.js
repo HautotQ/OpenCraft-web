@@ -64,6 +64,9 @@ class ViewQuestionsView {
         target.appendChild(hstack.getElement());
         target.appendChild(clearBtnStack.getElement());
         target.appendChild(div);
+        if (this.store.filename) {
+            this.filenameInput.value = this.store.filename;
+        }
         this.renderList();
     }
     
@@ -89,22 +92,22 @@ class ViewQuestionsView {
             reader.onload = (e) => {
                 const content = e.target.result;
     
-                // Normaliser les retours ligne
+                // 🔽 Lire par blocs Question/Réponse
                 const blocks = content
                     .replace(/\r/g, "")
-                    .split("\n\n")          // séparer par bloc
+                    .split("\n\n")
                     .map(b => b.trim())
                     .filter(b => b.length > 0);
     
                 this.store.clear();
     
                 blocks.forEach(block => {
-                    const lines = block.split("\n").map(l => l.trim());
+                const lines = block.split("\n").map(l => l.trim());
         
-                    const question = lines[0];
-                    const answer   = lines[1];
+                const question = lines[0];
+                const answer   = lines[1];
         
-                    if (question && answer) {
+                if (question && answer) {
                     this.store.addQuestion({
                         query: question,
                         answer: answer
