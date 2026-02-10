@@ -89,16 +89,24 @@ class ViewQuestionsView {
             reader.onload = (e) => {
                 const content = e.target.result;
                 const lines = content.split(/\r?\n/).map(line => line.trim());
-                
+    
                 for (let i = 0; i < lines.length; i++) {
                     const question = lines[i];
                     const answer = lines[i + 1];
                     if (question && answer) {
                         this.store.addQuestion({ query: question, answer: answer });
-                        i++; // passer à la ligne suivante pour la réponse
+                        i++;
                     }
                 }
-                this.filenameInput = file.name;
+    
+                // 🔽 Nom du fichier sans extension
+                const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
+    
+                // 🔽 Remettre dans l’input
+                this.filenameInput.value = nameWithoutExt;
+    
+                // 🔽 Sauvegarder si tu as un système de save
+                this.store.saveQuestions(nameWithoutExt);
             };
             
             reader.readAsText(file);
