@@ -30,11 +30,16 @@ class QuestionStore {
     // SAUVEGARDE
     // ——————————————————————————————————————
     saveQuestions(filename = null) {
+        if (filename !== null) {
+            localStorage.setItem(this.STORAGE_KEY + "-filename", filename);
+            this.filename = filename;
+        }
+    
         const formatted = this.questions.map(q => ({
-            filename: filename,
             query: q.query,
             answer: q.answer
         }));
+    
         localStorage.setItem(this.STORAGE_KEY, JSON.stringify(formatted));
     }
     
@@ -44,14 +49,20 @@ class QuestionStore {
     loadQuestions() {
         const data = localStorage.getItem(this.STORAGE_KEY);
         if (!data) return;
-        
+    
         try {
             const parsed = JSON.parse(data);
+        
             this.questions = parsed.map(q => ({
                 query: q.query,
                 answer: q.answer
             }));
+        
+            // 🔽 Charger filename
+            this.filename = localStorage.getItem(this.STORAGE_KEY + "-filename") || "questions";
+        
             this.notify();
+        
         } catch (e) {
             console.error("Erreur parsing questions:", e);
         }
