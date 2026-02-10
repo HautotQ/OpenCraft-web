@@ -29,8 +29,9 @@ class QuestionStore {
     // ——————————————————————————————————————
     // SAUVEGARDE
     // ——————————————————————————————————————
-    saveQuestions() {
+    saveQuestions(filename = null) {
         const formatted = this.questions.map(q => ({
+            filename: filename,
             query: q.query,
             answer: q.answer
         }));
