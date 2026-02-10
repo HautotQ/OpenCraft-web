@@ -53,6 +53,11 @@ class ViewQuestionsView {
         filename.placeholder = "Titre de la liste";
         filename.style.height = "30px";
         this.filenameInput = filename;
+        this.filenameInput.addEventListener("input", () => {
+            this.store.saveQuestions(
+                this.filenameInput.value.trim()
+            );
+        });
         
         
         this.listContainer = new ScrollView();
@@ -60,7 +65,7 @@ class ViewQuestionsView {
         div.appendChild(this.listContainer.getElement());
         
         this.store.subscribe(() => this.renderList());
-                
+        
         target.appendChild(hstack.getElement());
         target.appendChild(clearBtnStack.getElement());
         target.appendChild(div);
@@ -73,236 +78,240 @@ class ViewQuestionsView {
     importFile() {
         const input = document.createElement("input");
         input.type = "file";
-        input.accept = ".txt,.clist,text/plain,*/*"; 
+        input.accept = ".txt,.clist,text/plain,*/*";
         
         input.onchange = (event) => {
             const file = event.target.files[0];
             if (!file) return;
             
-            const extension = file.name.split('.').pop().toLowerCase();
+            const extension = file.name.split(".").pop().toLowerCase();
             if (extension !== "txt" && extension !== "clist") {
                 alert("Veuillez sélectionner un fichier .txt ou .clist");
                 return;
             }
             
-            this.store.clear();
-            this.store.saveQuestions();
-            
             const reader = new FileReader();
+            
             reader.onload = (e) => {
                 const content = e.target.result;
-    
-                // 🔽 Lire par blocs Question/Réponse
+                
+                // 🔽 Lecture par blocs Question/Réponse
                 const blocks = content
-                    .replace(/\r/g, "")
-                    .split("\n\n")
-                    .map(b => b.trim())
-                    .filter(b => b.length > 0);
-    
+                .replace(/\r/g, "")
+                .split("\n\n")
+                .map(b => b.trim())
+                .filter(b => b.length > 0);
+                
                 this.store.clear();
-    
+                
                 blocks.forEach(block => {
-                const lines = block.split("\n").map(l => l.trim());
-        
-                const question = lines[0];
-                const answer   = lines[1];
-        
-                if (question && answer) {
-                    this.store.addQuestion({
-                        query: question,
-                        answer: answer
-                    });
-                }
-            });
-    
-            // 🔽 Nom sans extension
-            const nameWithoutExt = file.name.replace(/\.[^/.]+$/, "");
-    
-            this.filenameInput.value = nameWithoutExt;
-            this.store.saveQuestions(nameWithoutExt);
+                    const lines = block.split("\n").map(l => l.trim());
+                    
+                    const question = lines[0];
+                    const answer   = lines[1];
+                    
+                    if (question && answer) {
+                        this.store.addQuestion({
+                            query: question,
+                            answer: answer
+                        });
+                    }
+                });
+                
+                // 🔽 Nom fichier sans extension
+                const nameWithoutExt =
+                file.name.replace(/\.[^/.]+$/, "");
+                
+                this.filenameInput.value = nameWithoutExt;
+                
+                // 🔽 Sauvegarde finale propre
+                this.store.saveQuestions(nameWithoutExt);
+            };
+            
+            // 🔥 LECTURE DU FICHIER
+            reader.readAsText(file);
         };
         
         input.click();
-        this.store.saveQuestions();
     }
-    
-    exportFile() {
-        const questions = this.store.questions;
         
-        if (questions.length === 0) {
-            alert("Aucune question à exporter.");
-            return;
-        }
-        
-        // Récupérer le nom saisi par l'utilisateur
-        let filename = (this.filenameInput.value || "questions").trim();
-        
-        if (filename.length === 0) {
-            filename = "questions";
-            return;
-        }
-        
-        // Ajouter l'extension automatiquement
-//        if (!filename.endsWith(".clist")) {
-//            filename += ".clist";
-//        }
-        
-        // Construire le contenu
-        let content = "";
-        
-        for (let i = 0; i < questions.length; i++) {
-            const q = questions[i];
-            content += q.query + "\n";
-            content += q.answer + "\n\n";
-        }
-        
-        // Envoyer le texte + le nom du fichier à Swift
-        const payload = {
-            filename: filename,
-            content: content
-        };
-        
-        if (window.webkit?.messageHandlers?.exportFile) {
-            window.webkit.messageHandlers.exportFile.postMessage(payload);
-        } else {
+        exportFile() {
             const questions = this.store.questions;
+            
             if (questions.length === 0) {
                 alert("Aucune question à exporter.");
                 return;
             }
-
+            
             // Récupérer le nom saisi par l'utilisateur
             let filename = (this.filenameInput.value || "questions").trim();
-
+            
             if (filename.length === 0) {
                 filename = "questions";
+                return;
             }
-
+            
             // Ajouter l'extension automatiquement
-            if (!filename.endsWith(".clist")) {
-                filename += ".clist";
-            }
-
+            //        if (!filename.endsWith(".clist")) {
+            //            filename += ".clist";
+            //        }
+            
             // Construire le contenu
             let content = "";
-
+            
             for (let i = 0; i < questions.length; i++) {
                 const q = questions[i];
                 content += q.query + "\n";
                 content += q.answer + "\n\n";
             }
-
-            // 🔽 Nouvelle partie : téléchargement dans le navigateur
-            const blob = new Blob([content], { type: "application/clist" });
-            const url = URL.createObjectURL(blob);
-
-            const a = document.createElement("a");
-            a.href = url;
-            a.download = filename;
-            document.body.appendChild(a);
-            a.click();
-            document.body.removeChild(a);
-
-            URL.revokeObjectURL(url);
-        }
-    }
-    
-    renderList() {
-        const el = this.listContainer.getElement();
-        while (el.firstChild) {
-            el.removeChild(el.firstChild);
-        }
-        const questions = this.store.questions;
-        
-        if (!this._menuListenerAdded) {
-            document.addEventListener("click", () => {
-                const menus = this.listContainer.getElement().querySelectorAll("div[menu]");
-                menus.forEach(menu => menu.style.display = "none");
-            });
-            this._menuListenerAdded = true;
-        }
-        
-        for (let i = 0; i < questions.length; i++) {
-            const q = questions[i];
-            const container = document.createElement("div");
-            container.className = "render-list-container";
-            container.innerText = `Q: ${q.query}\nR: ${q.answer}`;
             
-            const menu = document.createElement("div");
-            menu.className = "menu";
-            menu.setAttribute("menu", "true");
+            // Envoyer le texte + le nom du fichier à Swift
+            const payload = {
+                filename: filename,
+                content: content
+            };
             
-            // Bouton Modifier → ouvre EditQuestionView
-            const modifyBtn = document.createElement("button");
-            modifyBtn.className = "modify-btn";
-            modifyBtn.innerText = "Modifier";
-            modifyBtn.onclick = (e) => {
-                e.stopPropagation();
-                const index = this.store.questions.indexOf(q);
-                if (index >= 0) {
-                    const editView = new EditQuestionView(q.query, q.answer, (newQuery, newAnswer) => {
-                        this.store.updateQuestionAt(index, newQuery, newAnswer);
-                        this.renderList();
-                    });
-                    editView.show(this.target); // target principal pour afficher la modale
+            if (window.webkit?.messageHandlers?.exportFile) {
+                window.webkit.messageHandlers.exportFile.postMessage(payload);
+            } else {
+                const questions = this.store.questions;
+                if (questions.length === 0) {
+                    alert("Aucune question à exporter.");
+                    return;
                 }
-            };
-            menu.appendChild(modifyBtn);
-            
-            // Bouton Supprimer
-            const deleteBtn = document.createElement("button");
-            deleteBtn.className = "del-btn";
-            deleteBtn.innerText = "Supprimer";
-            deleteBtn.onclick = (e) => {
-                e.stopPropagation();
-                this.store.deleteQuestion(q);
-                menu.style.display = "none";
-            };
-            menu.appendChild(deleteBtn);
-            
-            container.appendChild(menu);
-            
-            // Remplacer ton addEventListener("click") par ceci :
-            
-            // Remplacer ton addEventListener("click") par ceci :
-            
-            container.addEventListener("click", (e) => {
-                e.preventDefault();        // désactive le menu clic droit du navigateur
-                e.stopPropagation();       // évite que le clic ferme le menu
                 
-                // fermer les autres menus
-                const menus = this.listContainer.getElement().querySelectorAll("div[menu]");
-                menus.forEach(m => {
-                    if (m !== menu) m.style.display = "none";
+                // Récupérer le nom saisi par l'utilisateur
+                let filename = (this.filenameInput.value || "questions").trim();
+                
+                if (filename.length === 0) {
+                    filename = "questions";
+                }
+                
+                // Ajouter l'extension automatiquement
+                if (!filename.endsWith(".clist")) {
+                    filename += ".clist";
+                }
+                
+                // Construire le contenu
+                let content = "";
+                
+                for (let i = 0; i < questions.length; i++) {
+                    const q = questions[i];
+                    content += q.query + "\n";
+                    content += q.answer + "\n\n";
+                }
+                
+                // 🔽 Nouvelle partie : téléchargement dans le navigateur
+                const blob = new Blob([content], { type: "application/clist" });
+                const url = URL.createObjectURL(blob);
+                
+                const a = document.createElement("a");
+                a.href = url;
+                a.download = filename;
+                document.body.appendChild(a);
+                a.click();
+                document.body.removeChild(a);
+                
+                URL.revokeObjectURL(url);
+            }
+        }
+        
+        renderList() {
+            const el = this.listContainer.getElement();
+            while (el.firstChild) {
+                el.removeChild(el.firstChild);
+            }
+            const questions = this.store.questions;
+            
+            if (!this._menuListenerAdded) {
+                document.addEventListener("click", () => {
+                    const menus = this.listContainer.getElement().querySelectorAll("div[menu]");
+                    menus.forEach(menu => menu.style.display = "none");
+                });
+                this._menuListenerAdded = true;
+            }
+            
+            for (let i = 0; i < questions.length; i++) {
+                const q = questions[i];
+                const container = document.createElement("div");
+                container.className = "render-list-container";
+                container.innerText = `Q: ${q.query}\nR: ${q.answer}`;
+                
+                const menu = document.createElement("div");
+                menu.className = "menu";
+                menu.setAttribute("menu", "true");
+                
+                // Bouton Modifier → ouvre EditQuestionView
+                const modifyBtn = document.createElement("button");
+                modifyBtn.className = "modify-btn";
+                modifyBtn.innerText = "Modifier";
+                modifyBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    const index = this.store.questions.indexOf(q);
+                    if (index >= 0) {
+                        const editView = new EditQuestionView(q.query, q.answer, (newQuery, newAnswer) => {
+                            this.store.updateQuestionAt(index, newQuery, newAnswer);
+                            this.renderList();
+                        });
+                        editView.show(this.target); // target principal pour afficher la modale
+                    }
+                };
+                menu.appendChild(modifyBtn);
+                
+                // Bouton Supprimer
+                const deleteBtn = document.createElement("button");
+                deleteBtn.className = "del-btn";
+                deleteBtn.innerText = "Supprimer";
+                deleteBtn.onclick = (e) => {
+                    e.stopPropagation();
+                    this.store.deleteQuestion(q);
+                    menu.style.display = "none";
+                };
+                menu.appendChild(deleteBtn);
+                
+                container.appendChild(menu);
+                
+                // Remplacer ton addEventListener("click") par ceci :
+                
+                // Remplacer ton addEventListener("click") par ceci :
+                
+                container.addEventListener("click", (e) => {
+                    e.preventDefault();        // désactive le menu clic droit du navigateur
+                    e.stopPropagation();       // évite que le clic ferme le menu
+                    
+                    // fermer les autres menus
+                    const menus = this.listContainer.getElement().querySelectorAll("div[menu]");
+                    menus.forEach(m => {
+                        if (m !== menu) m.style.display = "none";
+                    });
+                    
+                    // positionner le menu à l’endroit exact du clic
+                    menu.style.left = e.offsetX + "px";
+                    menu.style.top = e.offsetY + "px";
+                    
+                    // ouvrir / fermer
+                    menu.style.display = "block";
                 });
                 
-                // positionner le menu à l’endroit exact du clic
-                menu.style.left = e.offsetX + "px";
-                menu.style.top = e.offsetY + "px";
-                
-                // ouvrir / fermer
-                menu.style.display = "block";
-            });
-            
-            container.addEventListener("contextmenu", (e) => {
-                e.preventDefault();        // désactive le menu clic droit du navigateur
-                e.stopPropagation();       // évite que le clic ferme le menu
-                
-                // fermer les autres menus
-                const menus = this.listContainer.getElement().querySelectorAll("div[menu]");
-                menus.forEach(m => {
-                    if (m !== menu) m.style.display = "none";
+                container.addEventListener("contextmenu", (e) => {
+                    e.preventDefault();        // désactive le menu clic droit du navigateur
+                    e.stopPropagation();       // évite que le clic ferme le menu
+                    
+                    // fermer les autres menus
+                    const menus = this.listContainer.getElement().querySelectorAll("div[menu]");
+                    menus.forEach(m => {
+                        if (m !== menu) m.style.display = "none";
+                    });
+                    
+                    // positionner le menu à l’endroit exact du clic
+                    menu.style.left = e.offsetX + "px";
+                    menu.style.top = e.offsetY + "px";
+                    
+                    // ouvrir / fermer
+                    menu.style.display = "block";
                 });
                 
-                // positionner le menu à l’endroit exact du clic
-                menu.style.left = e.offsetX + "px";
-                menu.style.top = e.offsetY + "px";
-                
-                // ouvrir / fermer
-                menu.style.display = "block";
-            });
-            
-            this.listContainer.getElement().appendChild(container);
+                this.listContainer.getElement().appendChild(container);
+            }
         }
     }
-}
