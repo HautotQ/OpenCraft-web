@@ -92,7 +92,6 @@ class PlayQuestionsView {
         this.progressBar.className = "progress-bar";
 
         this.progressFill = document.createElement("div");
-        this.progressFill.style.width = percent + "%";
         this.progressFill.className = "progress-fill";
 
         this.progressBar.appendChild(this.progressFill);
@@ -155,6 +154,7 @@ class PlayQuestionsView {
             "Questions restantes : " + this.remainingQuestions.length;
             
             const progress = (total - this.remainingQuestions.length) / total;
+            const percent = Math.floor(progress * 100);
             this.progressFill.style.width = percent + "%";
             this.progressLabel.innerText = "Progression : " + Math.floor(progress * 100) + "%";
         }
