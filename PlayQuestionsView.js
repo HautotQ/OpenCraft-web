@@ -88,10 +88,13 @@ class PlayQuestionsView {
         // Labels et champs
         this.remainingLabel = document.createElement("div");
         this.progressLabel = document.createElement("div");
-        this.progressBar = document.createElement("progress");
+        this.progressBar = document.createElement("div");
         this.progressBar.className = "progress-bar";
-        this.progressBar.max = 1;
-        this.progressBar.value = 0;
+
+        this.progressFill = document.createElement("div");
+        this.progressFill.className = "progress-fill";
+
+        this.progressBar.appendChild(this.progressFill);
         
         this.questionLabel = document.createElement("div");
         this.questionLabel.className = "question-label";
