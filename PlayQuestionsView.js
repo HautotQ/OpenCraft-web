@@ -155,7 +155,7 @@ class PlayQuestionsView {
             "Questions restantes : " + this.remainingQuestions.length;
             
             const progress = (total - this.remainingQuestions.length) / total;
-            this.progressBar.value = progress;
+            this.progressFill.style.width = (progress * 100) + "%";
             this.progressLabel.innerText = "Progression : " + Math.floor(progress * 100) + "%";
         }
         
