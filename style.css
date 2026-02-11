@@ -257,8 +257,7 @@ p, span {
 }
 
 .progress-bar {
-    width: calc(100vw - 40px);
-    margin: 0 20px;
+    width: 100%;
     background: gray;
     height: 20px;
     border-radius: 10px;
