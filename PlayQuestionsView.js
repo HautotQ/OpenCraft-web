@@ -92,7 +92,7 @@ class PlayQuestionsView {
         this.progressBar.className = "progress-bar";
 
         this.progressFill = document.createElement("div");
-        this.progressFill.style.width = "75%";
+        this.progressFill.style.width = "0%";
         this.progressFill.className = "progress-fill";
 
         this.progressBar.appendChild(this.progressFill);
