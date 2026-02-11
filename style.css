@@ -267,7 +267,7 @@ p, span {
 
 .progress-fill {
     height: 100%;
-    width: 0%;
+    width: calc(100vw - 40px);
     background: #4caf50; /* couleur de progression */
     transition: width 0.3s ease;
 }
