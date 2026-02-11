@@ -262,6 +262,7 @@ p, span {
     background: #111;
     height: 20px; /* tu peux ajuster la hauteur */
     border-radius: 10px; /* optionnel, arrondi des bords */
+    transition: width 0.3s ease;
 }
 
 .answer-field {
