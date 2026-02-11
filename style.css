@@ -262,13 +262,13 @@ p, span {
     background: gray;
     height: 20px;
     border-radius: 10px;
-    overflow: hidden; /* important pour l’arrondi */
+    overflow: hidden;
 }
 
 .progress-fill {
     height: 100%;
-    width: calc(100vw - 40px);
-    background: #4caf50; /* couleur de progression */
+    width: 0%; /* ou valeur dynamique */
+    background: #4caf50;
     transition: width 0.3s ease;
 }
 
