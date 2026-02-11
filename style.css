@@ -257,11 +257,18 @@ p, span {
 }
 
 .progress-bar {
-    width: calc(100vw - 40px); /* 20px de chaque côté */
-    margin: 0 20px; /* espace gauche et droite */
+    width: calc(100vw - 40px);
+    margin: 0 20px;
     background: #111;
-    height: 20px; /* tu peux ajuster la hauteur */
-    border-radius: 10px; /* optionnel, arrondi des bords */
+    height: 20px;
+    border-radius: 10px;
+    overflow: hidden; /* important pour l’arrondi */
+}
+
+.progress-fill {
+    height: 100%;
+    width: 0%;
+    background: #4caf50; /* couleur de progression */
     transition: width 0.3s ease;
 }
 
