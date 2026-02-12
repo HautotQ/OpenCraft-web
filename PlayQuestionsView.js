@@ -74,6 +74,7 @@ class PlayQuestionsView {
     
     initUI() {
         this.root.innerHTML = "";
+        this.root.style.overflow = "hidden";
         
         this.root.style.marginTop = "65px";
         
